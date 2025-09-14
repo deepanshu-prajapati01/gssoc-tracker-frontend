@@ -1,5 +1,5 @@
 const constantSEO = {
-    baseUrl: "https://gssoc-tracker.netlify.app/",
+    baseUrl: "https://gssoc-tracker.netlify.app",
     applicationName: "Gssoc Tracker",
 
     title: "GirlScript Summer of Code 2025 Contribution Leaderboard | GSSoC Tracker",
