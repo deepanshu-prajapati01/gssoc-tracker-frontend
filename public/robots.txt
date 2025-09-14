@@ -1,0 +1,45 @@
+# ====================================
+# 🤖 General Settings
+# ====================================
+
+User-agent: *
+Disallow: /
+
+# Allowed routes
+Allow: /dashboard
+Allow: /leaderboard
+Allow: /projects
+Allow: /badges
+
+# Block common sensitive paths
+Disallow: /admin
+Disallow: /api
+Disallow: /private
+Disallow: /.netlify
+
+# Recommended Crawl Delay (some bots may ignore)
+Crawl-delay: 10
+
+# ====================================
+# 🔍 Search Engine Specific Rules
+# ====================================
+
+# Googlebot
+User-agent: Googlebot
+Allow: /dashboard
+Allow: /leaderboard
+Allow: /projects
+Allow: /badges
+
+# Bingbot
+User-agent: Bingbot
+Allow: /dashboard
+Allow: /leaderboard
+Allow: /projects
+Allow: /badges
+
+# ====================================
+# 📍 Sitemap
+# ====================================
+
+Sitemap: https://gssoc-tracker.netlify.app/sitemap.xml
