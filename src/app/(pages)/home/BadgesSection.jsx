@@ -62,7 +62,6 @@ const BadgesSection = () => {
                                     src="/badges/Legend-Badge.png"
                                     alt="Legend Badge"
                                     className="object-contain relative z-10 drop-shadow-lg"
-                                    priority
                                 />
                             </div>
                             <motion.p
