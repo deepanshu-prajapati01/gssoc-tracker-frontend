@@ -1,0 +1,50 @@
+[
+    {
+        "badgeName": "Explorer Badge",
+        "badgeImage": "/badges/Explorer-Badge.png",
+        "pointsRequired": 60,
+        "desc": "You've taken your first steps by earning 60 points. Your journey in open source has just begun, and we can't wait to see where it takes you. Perks: You'll receive an official GSSOC certificate of participation!"
+    },
+    {
+        "badgeName": "Adventurer Badge",
+        "badgeImage": "/badges/Adventurer-Badge.png",
+        "pointsRequired": 140,
+        "desc": "You've earned your Adventurer Badge with 140 points! Your journey through the open source landscape is gaining momentum. Each contribution is a step toward mastering new skills and making a real impact."
+    },
+    {
+        "badgeName": "Trailblazer Badge",
+        "badgeImage": "/badges/Trailblazer-Badge.png",
+        "pointsRequired": 200,
+        "desc": "You've blazed new trails with 200 points! As a Trailblazer, you're not just following paths—you're creating them. Your contributions light the way for others in the open source community."
+    },
+    {
+        "badgeName": "Summit Seeker Badge",
+        "badgeImage": "/badges/Summit-Seeker-Badge.png",
+        "pointsRequired": 300,
+        "desc": "Scaling new heights with 300 points! As a Summit Seeker, you've demonstrated the persistence to overcome challenges and the vision to see what's possible. The view from here is spectacular, and the best is yet to come!"
+    },
+    {
+        "badgeName": "Champion Badge",
+        "badgeImage": "/badges/Champion-Badge.png",
+        "pointsRequired": 500,
+        "desc": "Champion status unlocked with 500 points! Your consistent contributions and dedication have set you apart. You're not just participating—you're leading by example in the open source community."
+    },
+    {
+        "badgeName": "Innovator Badge",
+        "badgeImage": "/badges/Innovator-Badge.png",
+        "pointsRequired": 1200,
+        "desc": "Innovation unlocked with 1200 points! Your creative solutions and forward-thinking contributions are shaping the future of open source. This milestone is a testament to your ability to think differently and push boundaries."
+    },
+    {
+        "badgeName": "Conqueror Badge",
+        "badgeImage": "/badges/Conqueror-Badge.png",
+        "pointsRequired": 2500,
+        "desc": "Mastery achieved with 2500 points! As a Conqueror, you've demonstrated exceptional skill and perseverance. Your journey inspires others to push beyond their limits and aim for greatness in open source."
+    },
+    {
+        "badgeName": "Legend Badge",
+        "badgeImage": "/badges/Legend-Badge.png",
+        "pointsRequired": 5500,
+        "desc": "Legend status confirmed with 5500 points! Your name is now etched in the annals of open source excellence. As a true Legend, your contributions have left an indelible mark on the community. The journey continues, and we can't wait to see what you'll achieve next!"
+    }
+]
