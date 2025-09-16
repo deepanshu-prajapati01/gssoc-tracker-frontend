@@ -1,10 +1,11 @@
 import React from 'react'
+import HeroSection from './home/HeroSection'
 
 const HomePage = () => {
   return (
-    <div>
-
-    </div>
+    <>
+    <HeroSection />
+    </>
   )
 }
 
