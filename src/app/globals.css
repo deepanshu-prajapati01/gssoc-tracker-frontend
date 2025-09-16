@@ -113,6 +113,62 @@
     --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* === Global Thin Scrollbar === */
+
+/* Default (light mode) */
+:root {
+    --sb-track: rgba(15, 23, 42, 0.05); /* faint slate */
+    --sb-thumb: rgba(133, 133, 133, 0.65); /* gray */
+    --sb-thumb-hover: rgba(16, 185, 129, 0.85);
+    --sb-thumb-active: rgba(16, 185, 129, 1);
+    --sb-radius: 9999px;
+    --sb-size: 8px;
+    --sb-glow: 0 2px 8px rgba(16, 185, 129, 0.15);
+}
+
+/* Dark mode */
+.dark {
+    --sb-track: rgba(255, 255, 255, 0.06);
+    --sb-thumb: rgba(139, 92, 246, 0.55); /* violet */
+    --sb-thumb-hover: rgba(139, 92, 246, 0.75);
+    --sb-thumb-active: rgba(139, 92, 246, 0.95);
+    --sb-glow: 0 2px 8px rgba(139, 92, 246, 0.18);
+}
+
+/* Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+    width: var(--sb-size);
+    height: var(--sb-size);
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--sb-track);
+}
+
+*::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb);
+    border-radius: var(--sb-radius);
+    border: 2px solid transparent; /* creates padding */
+    background-clip: padding-box;
+    box-shadow: var(--sb-glow);
+    transition: background-color 150ms ease, transform 150ms ease;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background: var(--sb-thumb-hover);
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background: var(--sb-thumb-active);
+    transform: scale(0.96);
+}
+
 @layer base {
     * {
         @apply border-border outline-ring/50;
