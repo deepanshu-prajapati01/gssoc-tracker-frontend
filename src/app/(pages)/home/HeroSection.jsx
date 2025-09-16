@@ -31,9 +31,7 @@ const item = {
 
 const HeroSection = () => {
     return (
-        <section className="relative overflow-hidden bg-white dark:bg-neutral-900">
-            {/* Decorative Grid Background */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <section className="relative overflow-hidden bg-zinc-50 dark:bg-neutral-900/80">
 
             {/* Accent Corner Lines */}
             <div className="hidden sm:block absolute top-10 left-10 h-16 w-16 border-t-2 border-l-2 border-emerald-400 dark:border-violet-500 opacity-60 rounded-tl-lg" />

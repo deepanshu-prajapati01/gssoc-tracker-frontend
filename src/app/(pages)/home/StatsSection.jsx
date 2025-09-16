@@ -96,9 +96,7 @@ const StatsSection = () => {
     ]
 
     return (
-        <section className="relative py-16 bg-white dark:bg-neutral-900 border-b border-slate-200 dark:border-neutral-800 overflow-hidden">
-            {/* Decorative Grid Background */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,0,0,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.03)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
+        <section className="relative py-16 bg-zinc-100 dark:bg-neutral-900 overflow-hidden">
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                 <motion.div

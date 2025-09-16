@@ -48,13 +48,7 @@ const steps = [
 
 const HowItWorksSection = () => {
     return (
-        <section className="relative py-16 bg-slate-50 dark:bg-neutral-900 overflow-hidden">
-            {/* Decorative Background */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.02)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:24px_24px]" />
-
-            {/* Decorative Elements */}
-            <div className="absolute top-1/4 -left-12 w-32 h-32 rounded-full bg-emerald-100/50 dark:bg-violet-500/20 blur-3xl" />
-            <div className="absolute bottom-1/3 -right-12 w-40 h-40 rounded-full bg-emerald-100/30 dark:bg-violet-500/10 blur-3xl" />
+        <section className="relative py-16 bg-zinc-50 dark:bg-neutral-900/80 overflow-hidden">
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <motion.div

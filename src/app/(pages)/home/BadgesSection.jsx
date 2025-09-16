@@ -33,10 +33,7 @@ const item = {
 
 const BadgesSection = () => {
     return (
-        <section className="relative py-16 bg-white dark:bg-neutral-900 overflow-hidden">
-            {/* Decorative Grid Background */}
-            <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:24px_24px]" />
-
+        <section className="relative py-16 bg-zinc-100 dark:bg-neutral-900 overflow-hidden">
 
             {/* Geometric Shape Decorations */}
             <div className="absolute top-1/3 -left-6 w-24 h-24 border border-emerald-300 dark:border-violet-400/40 rounded-full opacity-30" />
@@ -80,7 +77,7 @@ const BadgesSection = () => {
                     <motion.div className="w-full md:w-1/2 text-center md:text-left" variants={item}>
                         {/* Small Pill */}
                         <motion.div
-                            className="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300 text-sm font-medium px-4 py-2 rounded-full mb-6"
+                            className="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 dark:bg-violet-700/30 dark:text-violet-300 text-sm font-medium px-4 py-2 rounded-full mb-6"
                             initial={{ opacity: 0, y: 10 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}

@@ -57,7 +57,7 @@ const Footer = () => {
 
     return (
         <footer className="bg-white dark:bg-neutral-900 border-t border-slate-200 dark:border-neutral-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-6">
                 {/* Main Footer Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-10 gap-x-8">
                     {/* Logo and Description */}
@@ -120,7 +120,7 @@ const Footer = () => {
                     {/* Community */}
                     <div className='flex flex-col items-center '>
                         <h3 className="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-                            Community
+                            Community Links
                         </h3>
                         <ul className="space-y-2">
                             {communityLinks.map((item) => (
