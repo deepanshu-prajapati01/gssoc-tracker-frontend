@@ -4,6 +4,7 @@ import GoogleAnalytics from "@/lib/GoogleAnalytics";
 import { metadata as baseMetadata } from "@/lib/seoMetadata";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import AppProvider from "@/providers/AppProvider";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -16,22 +17,23 @@ export const metadata = baseMetadata
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html suppressHydrationWarning lang="en">
       <head>
         <GoogleAnalytics />
       </head>
 
-      <body
-        className={`${spaceGrotesk.className} font-sans antialiased`}
-      >
-        <Navbar />
+      <body className={`${spaceGrotesk.className} font-sans antialiased`}>
+        <AppProvider>
+          <Navbar />
 
-        <main className="min-h-screen">
-          {children}
-        </main>
+          <main className="min-h-screen">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+        </AppProvider>
       </body>
-    </html>
+
+    </html >
   );
 }
