@@ -2,12 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import { useLeaderboardStore } from '@/store/leaderboard.store'
 import LeaderboardPagination from './LeaderboardPagination'
+import LeaderboardRow from './LeaderboardRow'
 
 const LeaderboardTable = () => {
     const {
         leaderboard,
-        leaderboardLastUpdated,
-        totalParticipants,
         currentPage,
         search,
         setSearch,
@@ -31,7 +30,7 @@ const LeaderboardTable = () => {
         const handler = setTimeout(() => {
             if (searchInput !== search) {
                 setSearch(searchInput)
-                setCurrentPage(1) // reset to page 1 for new search
+                setCurrentPage(1)
             }
         }, 500)
 
@@ -42,77 +41,110 @@ const LeaderboardTable = () => {
     const paginatedData = leaderboard[currentPage] || []
 
     return (
-        <section className="w-full max-w-5xl mx-auto mt-6">
-            <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
+        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="mb-8">
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Leaderboard</h1>
+                <p className="text-gray-600 dark:text-gray-400">Track the top contributors and their achievements</p>
+            </div>
 
-            {/* Search bar */}
-            <div className="mb-4">
-                <input
-                    type="text"
-                    value={searchInput}
-                    onChange={(e) => setSearchInput(e.target.value)}
-                    placeholder="Search by name or username..."
-                    className="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 outline-none"
-                />
+            {/* Search and Filters */}
+            <div className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex-1">
+                        <div className="relative">
+                            <input
+                                type="text"
+                                value={searchInput}
+                                onChange={(e) => setSearchInput(e.target.value)}
+                                placeholder="Search by name or username..."
+                                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 focus:border-transparent transition-all duration-200 outline-none"
+                            />
+                            <svg
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth={2}
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                                />
+                            </svg>
+                        </div>
+                    </div>
+                    {/* Add filter buttons here if needed */}
+                </div>
             </div>
 
             {/* Status */}
-            {isLoading && <p className="text-gray-500">Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
+            {isLoading && (
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                    <div className="animate-pulse flex flex-col items-center">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4"></div>
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                    </div>
+                </div>
+            )}
+            {error && (
+                <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-6 border border-red-200 dark:border-red-900/30">
+                    {error}
+                </div>
+            )}
 
             {/* Table */}
             {paginatedData.length > 0 && (
-                <div className="overflow-x-auto border rounded-lg shadow-sm">
-                    <table className="w-full border-collapse">
-                        <thead className="bg-gray-100 dark:bg-gray-800">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <table className="w-full">
+                        <thead className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
                             <tr>
-                                <th className="py-3 px-4 text-left">Rank</th>
-                                <th className="py-3 px-4 text-left">User</th>
-                                <th className="py-3 px-4 text-left">Pull Requests</th>
-                                <th className="py-3 px-4 text-left">Points</th>
+                                <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</th>
+                                <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">User</th>
+                                <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">PRs</th>
+                                <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Points</th>
+                                <th className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Badges</th>
+                                <th className="py-4 px-6 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {paginatedData.map((participant) => (
-                                <tr
-                                    key={participant.username}
-                                    className="border-b hover:bg-gray-50 dark:hover:bg-gray-700"
-                                >
-                                    <td className="py-3 px-4 font-semibold">{participant.rank}</td>
-                                    <td className="py-3 px-4 flex items-center gap-3">
-                                        <img
-                                            src={participant.avatarUrl}
-                                            alt={participant.fullName}
-                                            className="w-10 h-10 rounded-full border"
-                                        />
-                                        <div>
-                                            <a
-                                                href={participant.profileUrl}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="font-medium text-emerald-600 dark:text-violet-400 hover:underline"
-                                            >
-                                                {participant.fullName}
-                                            </a>
-                                            <p className="text-sm text-gray-500">@{participant.username}</p>
-                                        </div>
-                                    </td>
-                                    <td className="py-3 px-4">{participant.totalPRs}</td>
-                                    <td className="py-3 px-4 font-bold">{participant.totalPoints}</td>
-                                </tr>
+                        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                            {paginatedData.map((participant, index) => (
+                                <LeaderboardRow key={participant.username} participant={participant} />
                             ))}
                         </tbody>
                     </table>
                 </div>
             )}
 
-            {/* Empty */}
+            {/* Empty State */}
             {!isLoading && paginatedData.length === 0 && (
-                <p className="text-gray-500 mt-4">No participants found.</p>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
+                    <svg
+                        className="mx-auto h-12 w-12 text-gray-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                    <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white">No participants found</h3>
+                    <p className="mt-1 text-gray-500 dark:text-gray-400">
+                        {search ? 'Try adjusting your search or filter to find what you\'re looking for.' : 'There are currently no participants to display.'}
+                    </p>
+                </div>
             )}
 
-            {/* API Pagination (only show if not searching) */}
-            {!search && <LeaderboardPagination />}
+            {/* Pagination */}
+            {!search && paginatedData.length > 0 && (
+                <div className="mt-6">
+                    <LeaderboardPagination itemsPerPage={itemsPerPage} />
+                </div>
+            )}
         </section>
     )
 }
