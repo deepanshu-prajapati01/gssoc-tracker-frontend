@@ -21,12 +21,15 @@ const LeaderboardTable = () => {
         setSearch,
         setCurrentPage,
         fetchLeaderboard,
+        leaderboardLastUpdated,
+        totalParticipants,
         isLoading,
         error,
     } = useLeaderboardStore()
 
     const [itemsPerPage] = useState(30)
     const [searchInput, setSearchInput] = useState(search || "")
+
 
     // Fetch whenever search or page changes
     useEffect(() => {
@@ -54,9 +57,9 @@ const LeaderboardTable = () => {
 
             {/* Search and Filters */}
             <div className="mb-8 bg-white dark:bg-neutral-900 p-5 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm">
-                <div className="flex flex-col sm:flex-row gap-4">
-                    <div className="flex-1">
-                        <div className="relative">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                    <div className="flex-1 w-full">
+                        <div className="relative max-w-xl">
                             <input
                                 type="text"
                                 value={searchInput}
@@ -79,6 +82,25 @@ const LeaderboardTable = () => {
                             </svg>
                         </div>
                     </div>
+
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 text-sm text-slate-600 dark:text-slate-300 w-full sm:w-auto">
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium">Total Contributors:</span>
+                            <span className="font-semibold text-slate-800 dark:text-white">
+                                {totalParticipants?.toLocaleString() || '--'}
+                            </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <span className="font-medium">Last Updated:</span>
+                            <span className="font-medium text-slate-800 dark:text-white">
+                                {leaderboardLastUpdated ? new Date(leaderboardLastUpdated).toLocaleString() : '--'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="text-xs text-slate-500 dark:text-slate-400 italic">
+                    Note: Leaderboard updates every 2 hours. Last refresh time is shown above.
                 </div>
             </div>
 

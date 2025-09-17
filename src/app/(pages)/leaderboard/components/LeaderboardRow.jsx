@@ -25,7 +25,7 @@ const LeaderboardRow = ({ participant }) => {
             <TableCell className="py-4 px-6 whitespace-nowrap">
                 <div className="flex items-center">
                     <span
-                        className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold 
+                        className={`w-10 h-6 flex items-center justify-center rounded-lg text-sm font-semibold 
         ${participant.rank === 1
                                 ? 'bg-yellow-400 text-white'
                                 : participant.rank === 2
