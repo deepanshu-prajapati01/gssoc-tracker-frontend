@@ -27,7 +27,6 @@ const LeaderboardTable = () => {
         error,
     } = useLeaderboardStore()
 
-    const [itemsPerPage] = useState(30)
     const [searchInput, setSearchInput] = useState(search || "")
 
 
@@ -162,7 +161,7 @@ const LeaderboardTable = () => {
             {/* Pagination */}
             {!search && paginatedData.length > 0 && (
                 <div className="mt-6">
-                    <LeaderboardPagination itemsPerPage={itemsPerPage} />
+                    <LeaderboardPagination />
                 </div>
             )}
         </>

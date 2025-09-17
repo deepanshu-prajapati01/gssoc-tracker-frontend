@@ -4,13 +4,6 @@ import React from 'react'
 import { useLeaderboardStore } from '@/store/leaderboard.store'
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
 
 const LeaderboardPagination = () => {
     const {
@@ -20,7 +13,7 @@ const LeaderboardPagination = () => {
         totalParticipants,
     } = useLeaderboardStore()
 
-    const itemsPerPage = 30;
+    const itemsPerPage = 30; // Fixed items per page
     const { totalPages } = pagination
 
     if (!totalPages || totalPages <= 1) return null
@@ -148,30 +141,7 @@ const LeaderboardPagination = () => {
                         <ChevronsRight className="h-4 w-4" />
                     </Button>
                 </div>
-                
-                <div className="flex items-center space-x-2">
-                    <Select
-                        value={itemsPerPage.toString()}
-                        onValueChange={(value) => setItemsPerPage(Number(value))}
-                    >
-                        <SelectTrigger className="h-8 w-[70px] border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-slate-900 dark:text-white">
-                            <SelectValue placeholder={itemsPerPage} />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
-                            {[10, 20, 30, 40, 50].map((size) => (
-                                <SelectItem 
-                                    key={size} 
-                                    value={size.toString()} 
-                                    className="text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-neutral-800 focus:bg-emerald-50 dark:focus:bg-violet-500/20"
-                                >
-                                    {size}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                    <span className="text-sm text-slate-600 dark:text-slate-400">Rows per page</span>
-                    <p className="text-sm font-medium">Page {currentPage} of {totalPages}</p>
-                </div>
+                <p className="text-sm font-medium">Page {currentPage} of {totalPages}</p>
             </div>
         </div>
     )
