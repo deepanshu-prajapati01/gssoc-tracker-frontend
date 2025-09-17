@@ -1,84 +1,81 @@
-import { create } from 'zustand';
-import axiosInstance from '@/lib/axiosInstance';
+import { create } from 'zustand'
+import axiosInstance from '@/lib/axiosInstance'
 
 export const useLeaderboardStore = create((set, get) => ({
     error: null,
-    isLoading: false,
+    isLoading: true,
 
-    // Leaderboard
-    leaderboard: [], // all participants from fetched pages
+    // Leaderboard: keyed by page number
+    leaderboard: {}, // e.g., { 1: [...participants], 2: [...participants] }
     leaderboardLastUpdated: null,
     totalParticipants: null,
 
-    // Pagination
+    // Pagination (from API)
     pagination: {
         totalPages: null,
         hasNextPage: null,
-        hasPreviousPage: true,
+        hasPreviousPage: null,
         nextPage: null,
         previousPage: null,
-        currentPage: 0,
     },
 
-    // Track fetched pages to prevent duplicate API calls
-    pagesFetched: new Set(),
+    currentPage: 1, // Track which page user is on (local only)
+    search: "", // Search term
 
     /**
-     * Fetch leaderboard for the current page (only if not already fetched)
+     * Fetch leaderboard for the current page
      */
     fetchLeaderboard: async () => {
-        const { currentPage, pagesFetched, leaderboard } = get();
+        const { currentPage, leaderboard, search } = get()
 
-        // 🛑 Skip API call if we've already fetched this page
-        if (pagesFetched.has(currentPage)) {
-            console.log(`Page ${currentPage} already fetched. Skipping API call.`);
-            return;
+        // 🛑 Skip API call if page data already exists (and not searching)
+        if (!search && leaderboard[currentPage]) {
+            console.log(`Page ${currentPage} already in state. Skipping API call.`)
+            return
         }
 
-        set({ isLoading: true });
+        set({ isLoading: true, error: null })
 
         try {
-            const apiResponse = await axiosInstance.get(`/leaderboard?page=${currentPage}`);
-            const response = apiResponse.data;
-
-            if (!response.success) {
-                set({ error: response.message || "Something went wrong" });
-                return;
+            let url = `/leaderboard?page=${currentPage}`
+            if (search && search.trim() !== "") {
+                url += `&search=${search.trim()}`
             }
 
-            const data = response.data;
+            const apiResponse = await axiosInstance.get(url)
+            const response = apiResponse.data
 
-            // Append new participants to existing leaderboard
-            const updatedLeaderboard = [...leaderboard, ...data.participants];
+            if (!response.success) {
+                set({ error: response.message || "Something went wrong" })
+                return
+            }
 
-            // Update state
+            const data = response.data
+
             set((prev) => ({
-                leaderboard: updatedLeaderboard,
+                leaderboard: {
+                    ...prev.leaderboard,
+                    [currentPage]: data.participants, // store participants under the current page key
+                },
                 leaderboardLastUpdated: data.lastUpdated,
                 totalParticipants: data.totalParticipants,
 
-                // Pagination
                 pagination: {
                     totalPages: data.pagination.totalPages,
                     hasNextPage: data.pagination.hasNextPage,
                     hasPreviousPage: data.pagination.hasPreviousPage,
                     nextPage: data.pagination.nextPage,
                     previousPage: data.pagination.previousPage,
-                    currentPage: data.pagination.currentPage,
                 },
-
-                // Add currentPage to fetched pages
-                pagesFetched: new Set(prev.pagesFetched).add(currentPage),
-            }));
-
+            }))
         } catch (error) {
             if (axiosInstance.isAxiosError?.(error)) {
-                set({ error: error.response?.data?.message || "Something went wrong" });
+                set({ error: error.response?.data?.message || "Something went wrong" })
             } else {
-                set({ error: error.message || "Something went wrong" });
+                set({ error: error.message || "Something went wrong" })
             }
         } finally {
-            set({ isLoading: false });
+            set({ isLoading: false })
         }
     },
 
@@ -86,6 +83,18 @@ export const useLeaderboardStore = create((set, get) => ({
      * Set current page
      */
     setCurrentPage: (page) => {
-        set({ currentPage: page });
+        set({ currentPage: page })
     },
-}));
+
+    /**
+     * Set search term
+     */
+    setSearch: (searchText) => {
+        // Reset leaderboard cache when a new search is applied
+        set({
+            search: searchText,
+            leaderboard: {},
+            currentPage: 1,
+        })
+    },
+}))
