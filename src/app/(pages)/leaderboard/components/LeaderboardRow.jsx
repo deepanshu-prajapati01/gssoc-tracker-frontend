@@ -41,7 +41,7 @@ const LeaderboardRow = ({ participant }) => {
                             href={participant.profileUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 font-medium text-gray-900 dark:text-white hover:text-emerald-600 dark:hover:text-violet-400 transition-colors group"
+                            className="inline-flex items-center gap-1 font-medium text-gray-900 dark:text-white hover:text-emerald-600 dark:hover:text-violet-400 transition-colors group capitalize"
                         >
                             {participant.fullName}
                             <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
