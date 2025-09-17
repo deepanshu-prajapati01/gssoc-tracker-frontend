@@ -1,9 +1,8 @@
-import React from 'react'
-
+import LeaderboardTable from "./components/LeaderboardTable"
 const LeaderboardPage = () => {
     return (
         <div>
-
+            <LeaderboardTable />
         </div>
     )
 }

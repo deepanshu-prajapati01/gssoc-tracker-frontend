@@ -11,4 +11,7 @@ const axiosInstance = axios.create({
     }
 })
 
+// Attach isAxiosError to your instance (optional sugar)
+axiosInstance.isAxiosError = axios.isAxiosError;
+
 export default axiosInstance
