@@ -5,8 +5,8 @@ export const useLeaderboardStore = create((set, get) => ({
     error: null,
     isLoading: false,
 
-    // Leaderboard
-    leaderboard: [], // participants from fetched pages
+    // Leaderboard: keyed by page number
+    leaderboard: {}, // e.g., { 1: [...participants], 2: [...participants] }
     leaderboardLastUpdated: null,
     totalParticipants: null,
 
@@ -19,19 +19,18 @@ export const useLeaderboardStore = create((set, get) => ({
         previousPage: null,
     },
 
-    currentPage: 1,    // Track which page user is on (local only)
-    pagesFetched: new Set(), // Track fetched pages to prevent duplicate API calls
+    currentPage: 1, // Track which page user is on (local only)
     search: "", // Search term
 
     /**
-     * Fetch leaderboard for the current page (only if not already fetched)
+     * Fetch leaderboard for the current page
      */
     fetchLeaderboard: async () => {
-        const { currentPage, pagesFetched, search } = get()
+        const { currentPage, leaderboard, search } = get()
 
-        // 🛑 Skip API call if we've already fetched this page (only if not searching)
-        if (!search && pagesFetched.has(currentPage)) {
-            console.log(`Page ${currentPage} already fetched. Skipping API call.`)
+        // 🛑 Skip API call if page data already exists (and not searching)
+        if (!search && leaderboard[currentPage]) {
+            console.log(`Page ${currentPage} already in state. Skipping API call.`)
             return
         }
 
@@ -47,16 +46,17 @@ export const useLeaderboardStore = create((set, get) => ({
             const response = apiResponse.data
 
             if (!response.success) {
-                set({ error: response.message || 'Something went wrong' })
+                set({ error: response.message || "Something went wrong" })
                 return
             }
 
             const data = response.data
 
             set((prev) => ({
-                leaderboard: search
-                    ? data.participants // if searching → replace results
-                    : [...prev.leaderboard, ...data.participants], // otherwise append
+                leaderboard: {
+                    ...prev.leaderboard,
+                    [currentPage]: data.participants, // store participants under the current page key
+                },
                 leaderboardLastUpdated: data.lastUpdated,
                 totalParticipants: data.totalParticipants,
 
@@ -67,17 +67,12 @@ export const useLeaderboardStore = create((set, get) => ({
                     nextPage: data.pagination.nextPage,
                     previousPage: data.pagination.previousPage,
                 },
-
-                // Only cache if not searching
-                pagesFetched: search
-                    ? new Set() // searching shouldn’t cache
-                    : new Set(prev.pagesFetched).add(currentPage),
             }))
         } catch (error) {
             if (axiosInstance.isAxiosError?.(error)) {
-                set({ error: error.response?.data?.message || 'Something went wrong' })
+                set({ error: error.response?.data?.message || "Something went wrong" })
             } else {
-                set({ error: error.message || 'Something went wrong' })
+                set({ error: error.message || "Something went wrong" })
             }
         } finally {
             set({ isLoading: false })
@@ -95,11 +90,10 @@ export const useLeaderboardStore = create((set, get) => ({
      * Set search term
      */
     setSearch: (searchText) => {
-        // Reset leaderboard + pagesFetched when new search applied
+        // Reset leaderboard cache when a new search is applied
         set({
             search: searchText,
-            leaderboard: [],
-            pagesFetched: new Set(),
+            leaderboard: {},
             currentPage: 1,
         })
     },

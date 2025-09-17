@@ -1,68 +1,41 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useLeaderboardStore } from '@/store/leaderboard.store'
+import LeaderboardPagination from './LeaderboardPagination'
 
 const LeaderboardTable = () => {
     const {
         leaderboard,
         leaderboardLastUpdated,
         totalParticipants,
-        pagination,
         currentPage,
         search,
-        setSearch,
-        setCurrentPage,
         fetchLeaderboard,
         isLoading,
         error,
+        pagination,
     } = useLeaderboardStore()
 
-    const [searchInput, setSearchInput] = useState("")
+    const [itemsPerPage] = useState(30)
 
-    // Fetch leaderboard whenever currentPage or search changes
+    // Fetch whenever search or page changes
     useEffect(() => {
         fetchLeaderboard()
-    }, [currentPage, search])
+    }, [search, currentPage])
 
-    // Debounce search input → updates store after 500ms pause
-    useEffect(() => {
-        const handler = setTimeout(() => {
-            // ✅ Only update if value changed
-            if (searchInput !== search) {
-                setSearch(searchInput)
-                setCurrentPage(1) // reset to page 1 for new search
-            }
-        }, 500)
-
-        return () => {
-            clearTimeout(handler)
-        }
-    }, [searchInput, search])
+    // Grab data for current page
+    const paginatedData = leaderboard[currentPage] || []
 
     return (
         <section className="w-full max-w-5xl mx-auto mt-6">
             <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
 
-            {/* Search bar */}
-            <div className="mb-4">
-                <input
-                    type="text"
-                    value={searchInput}
-                    onChange={(e) => {
-                        setSearchInput(e.target.value)
-                        // setCurrentPage(1)
-                    }}
-                    placeholder="Search by name or username..."
-                    className="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 outline-none"
-                />
-            </div>
-
-            {/* Status messages */}
+            {/* Status */}
             {isLoading && <p className="text-gray-500">Loading...</p>}
             {error && <p className="text-red-500">{error}</p>}
 
-            {/* Leaderboard Table */}
-            {leaderboard.length > 0 && (
+            {/* Table */}
+            {paginatedData.length > 0 && (
                 <div className="overflow-x-auto border rounded-lg shadow-sm">
                     <table className="w-full border-collapse">
                         <thead className="bg-gray-100 dark:bg-gray-800">
@@ -74,7 +47,7 @@ const LeaderboardTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {leaderboard.map((participant) => (
+                            {paginatedData.map((participant) => (
                                 <tr
                                     key={participant.username}
                                     className="border-b hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -107,43 +80,21 @@ const LeaderboardTable = () => {
                 </div>
             )}
 
-            {/* Empty state */}
-            {!isLoading && leaderboard.length === 0 && (
+            {/* Empty */}
+            {!isLoading && paginatedData.length === 0 && (
                 <p className="text-gray-500 mt-4">No participants found.</p>
             )}
 
-            {/* Pagination controls (only if not searching) */}
-            {!search && (
-                <div className="mt-4 flex gap-4">
-                    <button
-                        disabled={!pagination.hasPreviousPage}
-                        className={`bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-violet-600 dark:hover:bg-violet-700 transition-colors px-6 py-2 text-base rounded ${pagination.hasPreviousPage ? '' : 'opacity-50 cursor-not-allowed'
-                            }`}
-                        onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                        Previous
-                    </button>
-
-                    <button
-                        disabled={!pagination.hasNextPage}
-                        className={`bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-violet-600 dark:hover:bg-violet-700 transition-colors px-6 py-2 text-base rounded ${pagination.hasNextPage ? '' : 'opacity-50 cursor-not-allowed'
-                            }`}
-                        onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                        Next
-                    </button>
-                </div>
-            )}
+            {/* API Pagination */}
+            <LeaderboardPagination itemsPerPage={itemsPerPage} />
 
             {/* Extra info */}
             <div className="mt-4 text-sm text-gray-500">
                 <p>Total Participants: {totalParticipants ?? '-'}</p>
                 <p>Last Updated: {leaderboardLastUpdated ?? '-'}</p>
-                {!search && (
-                    <p>
-                        Page {currentPage} of {pagination.totalPages ?? '-'}
-                    </p>
-                )}
+                <p>
+                    Page {currentPage} of {pagination.totalPages ?? '-'}
+                </p>
             </div>
         </section>
     )
