@@ -2,7 +2,15 @@
 
 import React from 'react'
 import { useLeaderboardStore } from '@/store/leaderboard.store'
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, MoreHorizontal } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/ui/select'
 
 const LeaderboardPagination = () => {
     const {
@@ -20,81 +28,129 @@ const LeaderboardPagination = () => {
     const startItem = totalParticipants > 0 ? (currentPage - 1) * itemsPerPage + 1 : 0
     const endItem = Math.min(currentPage * itemsPerPage, totalParticipants)
 
+    // Generate page numbers to show
+    const getPageNumbers = () => {
+        const pages = [];
+        const maxVisiblePages = 5;
+        
+        if (totalPages <= maxVisiblePages) {
+            // Show all pages if total pages are less than or equal to maxVisiblePages
+            for (let i = 1; i <= totalPages; i++) {
+                pages.push(i);
+            }
+        } else {
+            // Always show first page
+            pages.push(1);
+            
+            // Calculate start and end of the middle section
+            let start = Math.max(2, currentPage - 1);
+            let end = Math.min(totalPages - 1, currentPage + 1);
+            
+            // Adjust if we're near the start or end
+            if (currentPage <= 3) {
+                end = 4;
+            } else if (currentPage >= totalPages - 2) {
+                start = totalPages - 3;
+            }
+            
+            // Add ellipsis if needed after first page
+            if (start > 2) {
+                pages.push('...');
+            }
+            
+            // Add middle pages
+            for (let i = start; i <= end; i++) {
+                if (i > 1 && i < totalPages) {
+                    pages.push(i);
+                }
+            }
+            
+            // Add ellipsis if needed before last page
+            if (end < totalPages - 1) {
+                pages.push('...');
+            }
+            
+            // Always show last page
+            if (totalPages > 1) {
+                pages.push(totalPages);
+            }
+        }
+        
+        return pages;
+    };
+
     return (
-        <div className="bg-white dark:bg-zinc-800 px-4 py-3 flex items-center justify-between border-t border-zinc-200 dark:border-zinc-700 sm:px-6">
-            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                {/* Left side: Showing info */}
-                <div>
-                    <p className="text-sm text-zinc-700 dark:text-zinc-300">
-                        Showing <span className="font-medium">{startItem}</span> to{' '}
-                        <span className="font-medium">{endItem}</span> of{' '}
-                        <span className="font-medium">{totalParticipants}</span> participants
-                    </p>
-                </div>
-
-                {/* Right side: Controls */}
-                <div>
-                    <nav
-                        className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-                        aria-label="Pagination"
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2 py-4">
+            <div className="flex-1 text-sm text-muted-foreground">
+                Showing <span className="font-medium">{startItem}</span> to{' '}
+                <span className="font-medium">{endItem}</span> of{' '}
+                <span className="font-medium">{totalParticipants}</span> participants
+            </div>
+            
+            <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1">
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(1)}
+                        disabled={currentPage === 1}
+                        className="hidden h-8 w-8 p-0 lg:flex"
                     >
-                        {/* First */}
-                        <button
-                            onClick={() => setCurrentPage(1)}
-                            disabled={currentPage === 1}
-                            className={`relative inline-flex items-center px-2 py-2 rounded-l-md border ${currentPage === 1
-                                ? 'bg-zinc-100 dark:bg-zinc-700 border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'
-                                : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-500 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700'
-                                }`}
-                        >
-                            <span className="sr-only">First</span>
-                            <ChevronsLeft className="h-5 w-5" aria-hidden="true" />
-                        </button>
+                        <span className="sr-only">Go to first page</span>
+                        <ChevronsLeft className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                        disabled={currentPage === 1}
+                        className="h-8 w-8 p-0"
+                    >
+                        <span className="sr-only">Go to previous page</span>
+                        <ChevronLeft className="h-4 w-4" />
+                    </Button>
 
-                        {/* Prev */}
-                        <button
-                            onClick={() => setCurrentPage(currentPage - 1)}
-                            disabled={currentPage === 1}
-                            className={`relative inline-flex items-center px-2 py-2 border ${currentPage === 1
-                                ? 'bg-zinc-100 dark:bg-zinc-700 border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'
-                                : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-500 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700'
-                                }`}
+                    {getPageNumbers().map((page, index) => (
+                        <Button
+                            key={index}
+                            variant={page === currentPage ? 'default' : 'ghost'}
+                            size="sm"
+                            className={`h-8 w-8 p-0 ${page === '...' ? 'cursor-default' : ''}`}
+                            onClick={() => typeof page === 'number' && setCurrentPage(page)}
+                            disabled={page === '...'}
                         >
-                            <span className="sr-only">Previous</span>
-                            <ChevronLeft className="h-5 w-5" aria-hidden="true" />
-                        </button>
+                            {page === '...' ? (
+                                <MoreHorizontal className="h-4 w-4" />
+                            ) : (
+                                page
+                            )}
+                        </Button>
+                    ))}
 
-                        {/* Current page info */}
-                        <span className="relative inline-flex items-center px-4 py-2 border border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800 text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                            Page {currentPage} of {totalPages}
-                        </span>
-
-                        {/* Next */}
-                        <button
-                            onClick={() => setCurrentPage(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                            className={`relative inline-flex items-center px-2 py-2 border ${currentPage === totalPages
-                                ? 'bg-zinc-100 dark:bg-zinc-700 border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'
-                                : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-500 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700'
-                                }`}
-                        >
-                            <span className="sr-only">Next</span>
-                            <ChevronRight className="h-5 w-5" aria-hidden="true" />
-                        </button>
-
-                        {/* Last */}
-                        <button
-                            onClick={() => setCurrentPage(totalPages)}
-                            disabled={currentPage === totalPages}
-                            className={`relative inline-flex items-center px-2 py-2 rounded-r-md border ${currentPage === totalPages
-                                ? 'bg-zinc-100 dark:bg-zinc-700 border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500 cursor-not-allowed'
-                                : 'bg-white dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-500 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700'
-                                }`}
-                        >
-                            <span className="sr-only">Last</span>
-                            <ChevronsRight className="h-5 w-5" aria-hidden="true" />
-                        </button>
-                    </nav>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                        disabled={currentPage === totalPages}
+                        className="h-8 w-8 p-0"
+                    >
+                        <span className="sr-only">Go to next page</span>
+                        <ChevronRight className="h-4 w-4" />
+                    </Button>
+                    <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCurrentPage(totalPages)}
+                        disabled={currentPage === totalPages}
+                        className="hidden h-8 w-8 p-0 lg:flex"
+                    >
+                        <span className="sr-only">Go to last page</span>
+                        <ChevronsRight className="h-4 w-4" />
+                    </Button>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                    <p className="text-sm font-medium">Page {currentPage} of {totalPages}</p>
                 </div>
             </div>
         </div>
