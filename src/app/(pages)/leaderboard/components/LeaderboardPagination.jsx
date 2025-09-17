@@ -80,7 +80,7 @@ const LeaderboardPagination = () => {
     };
 
     return (
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-2 py-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-neutral-900 rounded-lg p-4 border border-slate-200 dark:border-neutral-800 shadow-sm">
             <div className="flex-1 text-sm text-muted-foreground">
                 Showing <span className="font-medium">{startItem}</span> to{' '}
                 <span className="font-medium">{endItem}</span> of{' '}
@@ -150,6 +150,26 @@ const LeaderboardPagination = () => {
                 </div>
                 
                 <div className="flex items-center space-x-2">
+                    <Select
+                        value={itemsPerPage.toString()}
+                        onValueChange={(value) => setItemsPerPage(Number(value))}
+                    >
+                        <SelectTrigger className="h-8 w-[70px] border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-slate-900 dark:text-white">
+                            <SelectValue placeholder={itemsPerPage} />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white dark:bg-neutral-900 border-slate-200 dark:border-neutral-800">
+                            {[10, 20, 30, 40, 50].map((size) => (
+                                <SelectItem 
+                                    key={size} 
+                                    value={size.toString()} 
+                                    className="text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-neutral-800 focus:bg-emerald-50 dark:focus:bg-violet-500/20"
+                                >
+                                    {size}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                    <span className="text-sm text-slate-600 dark:text-slate-400">Rows per page</span>
                     <p className="text-sm font-medium">Page {currentPage} of {totalPages}</p>
                 </div>
             </div>

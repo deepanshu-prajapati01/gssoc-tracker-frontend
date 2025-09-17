@@ -53,7 +53,7 @@ const LeaderboardTable = () => {
             
 
             {/* Search and Filters */}
-            <div className="mb-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+            <div className="mb-8 bg-white dark:bg-neutral-900 p-5 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm">
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
                         <div className="relative">
@@ -62,10 +62,10 @@ const LeaderboardTable = () => {
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 placeholder="Search by name or username..."
-                                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 focus:border-transparent transition-all duration-200 outline-none"
+                                className="w-full pl-10 pr-4 py-2.5 text-sm rounded-lg border border-slate-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 focus:border-transparent transition-all duration-200 outline-none"
                             />
                             <svg
-                                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -79,16 +79,15 @@ const LeaderboardTable = () => {
                             </svg>
                         </div>
                     </div>
-                    {/* Add filter buttons here if needed */}
                 </div>
             </div>
 
             {/* Status */}
             {isLoading && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 text-center">
+                <div className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-200 dark:border-neutral-800 p-8 text-center shadow-sm">
                     <div className="animate-pulse flex flex-col items-center">
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-4"></div>
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2"></div>
+                        <div className="h-4 bg-slate-200 dark:bg-neutral-700 rounded w-1/4 mb-4"></div>
+                        <div className="h-4 bg-slate-200 dark:bg-neutral-700 rounded w-1/2"></div>
                     </div>
                 </div>
             )}
@@ -100,16 +99,16 @@ const LeaderboardTable = () => {
 
             {/* Table */}
             {paginatedData.length > 0 && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-200 dark:border-neutral-800 overflow-hidden shadow-sm">
                     <Table>
-                        <TableHeader className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                        <TableHeader className="bg-slate-50 dark:bg-neutral-800/50 border-b border-slate-200 dark:border-neutral-800">
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Rank</TableHead>
-                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">User</TableHead>
-                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total PRs</TableHead>
-                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Total Points</TableHead>
-                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Badge Earned</TableHead>
-                                <TableHead className="py-4 px-6 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Actions</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Rank</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Contributor</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total PRs</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Points</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Badge Earned</TableHead>
+                                <TableHead className="py-4 px-6 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -123,9 +122,9 @@ const LeaderboardTable = () => {
 
             {/* Empty State */}
             {!isLoading && paginatedData.length === 0 && (
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-12 text-center">
+                <div className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-200 dark:border-neutral-800 p-12 text-center shadow-sm">
                     <svg
-                        className="mx-auto h-12 w-12 text-gray-400"
+                        className="mx-auto h-12 w-12 text-slate-400"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -137,9 +136,9 @@ const LeaderboardTable = () => {
                             d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                         />
                     </svg>
-                    <h3 className="mt-2 text-lg font-medium text-gray-900 dark:text-white">No participants found</h3>
-                    <p className="mt-1 text-gray-500 dark:text-gray-400">
-                        {search ? 'Try adjusting your search or filter to find what you\'re looking for.' : 'There are currently no participants to display.'}
+                    <h3 className="mt-4 text-lg font-medium text-slate-900 dark:text-white">No participants found</h3>
+                    <p className="mt-2 text-slate-600 dark:text-slate-400">
+                        {search ? 'Try adjusting your search to find what you\'re looking for.' : 'There are currently no participants to display.'}
                     </p>
                 </div>
             )}

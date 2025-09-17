@@ -1,89 +1,117 @@
-import React, { useState } from 'react'
-import badgesData from '@/lib/badges.json'
-import { Eye, ExternalLink } from 'lucide-react'
-import { TableRow, TableCell } from '@/components/ui/table'
-
+import React from 'react';
+import badgesData from '@/lib/badges.json';
+import { Eye } from 'lucide-react';
+import { TableRow, TableCell } from '@/components/ui/table';
 
 const LeaderboardRow = ({ participant }) => {
-    const [isHovered, setIsHovered] = useState(false)
-
     const earnedBadge = React.useMemo(() => {
-        return badgesData
-            .filter(badge => participant.totalPoints >= badge.pointsRequired)
-            .sort((a, b) => a.pointsRequired - b.pointsRequired)
-            .pop()
-    }, [participant.totalPoints])
+        // Find the highest badge where participant's points meet or exceed the required points
+        const eligibleBadges = badgesData.filter(badge => participant.totalPoints >= badge.pointsRequired);
+
+        // If no eligible badges, return null
+        if (eligibleBadges.length === 0) return null;
+
+        // Return the badge with highest points requirement from eligible badges
+        return eligibleBadges.reduce((highest, current) =>
+            (current.pointsRequired > highest.pointsRequired) ? current : highest
+        );
+    }, [participant.totalPoints]);
 
     return (
         <TableRow
             key={participant.username}
-            className={`border-b transition-all duration-300 ${isHovered ? 'bg-gray-50 dark:bg-gray-800/50' : 'bg-white dark:bg-gray-900'}`}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            className="group hover:bg-slate-50/50 dark:hover:bg-neutral-800/50 transition-colors duration-200"
         >
-            <TableCell className="py-5 px-6">
-                <div className={`flex items-center justify-center w-8 h-8 rounded-full ${participant.rank <= 3 ? 'bg-yellow-400 text-white' : 'bg-gray-100 dark:bg-gray-800'} font-bold text-sm`}>
-                    {participant.rank}
+            <TableCell className="py-4 px-6 whitespace-nowrap">
+                <div className="flex items-center">
+                    <span
+                        className={`w-8 h-8 flex items-center justify-center rounded-full text-sm font-semibold 
+        ${participant.rank === 1
+                                ? 'bg-yellow-400 text-white'
+                                : participant.rank === 2
+                                    ? 'bg-gray-400 text-white'
+                                    : participant.rank === 3
+                                        ? 'bg-amber-600 text-white'
+                                        : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                            }`}
+                    >
+                        {participant.rank}
+                    </span>
                 </div>
             </TableCell>
+
             <TableCell className="py-4 px-6">
-                <div className="flex items-center gap-4">
-                    <div className="relative group">
+                <div className="flex items-center">
+                    <div className="flex-shrink-0 size-12 rounded-full overflow-hidden border-2 border-white dark:border-neutral-900 shadow-sm group-hover:border-emerald-100 dark:group-hover:border-violet-500/20 transition-colors duration-200">
                         <img
-                            src={participant.avatarUrl}
+                            className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            src={participant.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(participant.fullName || '')}&background=random`}
                             alt={participant.fullName}
-                            className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow-sm transition-transform duration-300 group-hover:scale-110"
+                            onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(participant.fullName || '')}&background=random`;
+                            }}
                         />
-                        <div className="absolute -inset-1 bg-emerald-400 rounded-full opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-300"></div>
                     </div>
-                    <div className="min-w-0">
-                        <a
-                            href={participant.profileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 font-medium text-gray-900 dark:text-white hover:text-emerald-600 dark:hover:text-violet-400 transition-colors group capitalize"
-                        >
+                    <div className="ml-4">
+                        <div className="text-sm font-medium text-slate-900 dark:text-white">
                             {participant.fullName}
-                            <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </a>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 truncate">@{participant.username}</p>
+                        </div>
+                        <div className="text-sm text-slate-500 dark:text-slate-400">
+                            @{participant.username}
+                        </div>
                     </div>
                 </div>
             </TableCell>
-            <TableCell className="py-4 px-6 text-center text-gray-700 dark:text-gray-300 font-medium">
-                {participant.totalPRs}
+            <TableCell className="py-4 px-6 whitespace-nowrap">
+                <div className="text-sm text-slate-800 dark:text-slate-200 font-medium">
+                    {participant.totalPRs}
+                </div>
             </TableCell>
-            <TableCell className="py-4 px-6 text-center">
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 font-bold text-sm border border-emerald-100 dark:border-emerald-800/50">
-                    {participant.totalPoints}
-                </span>
+            <TableCell className="py-4 px-6 whitespace-nowrap">
+                <div className="flex items-center">
+                    <span className="text-sm font-medium text-slate-900 dark:text-white">
+                        {participant.totalPoints}
+                    </span>
+                </div>
             </TableCell>
             <TableCell className="py-4 px-6">
-                <div className="flex justify-center">
-                    {earnedBadge ? (
-                        <div className="group relative">
+                {earnedBadge ? (
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0 size-12 rounded-full overflow-hidden border border-slate-200 dark:border-neutral-700 shadow-sm">
                             <img
+                                className="h-full w-full object-cover"
                                 src={earnedBadge.badgeImage}
                                 alt={earnedBadge.badgeName}
-                                className="w-12 h-12 rounded-full border-2 border-white dark:border-gray-800 shadow-md transition-transform duration-300 hover:scale-110"
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = '/placeholder-badge.png'; // Fallback image
+                                }}
                             />
-                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 bg-gray-900 text-white text-xs rounded-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                                <div className="font-semibold">{earnedBadge.badgeName}</div>
+                        </div>
+                        <div className="ml-3">
+                            <div className="text-sm font-medium text-slate-900 dark:text-white">
+                                {earnedBadge.badgeName}
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400">
+                                {earnedBadge.pointsRequired} pts
                             </div>
                         </div>
-                    ) : (
-                        <span className="text-sm text-gray-400 dark:text-gray-500">—</span>
-                    )}
-                </div>
+                    </div>
+                ) : (
+                    <span className="text-sm text-slate-500 dark:text-slate-400">No badges earned</span>
+                )}
             </TableCell>
             <TableCell className="py-4 px-6 text-right">
-                <button className="inline-flex items-center gap-2 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700/80 hover:border-gray-300 dark:hover:border-gray-600 transition-all duration-200 shadow-sm hover:shadow-md">
+                <button
+                    className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/20 dark:focus:ring-violet-500 transition-colors duration-200"
+                >
                     <Eye className="w-4 h-4" />
                     <span>View Details</span>
                 </button>
             </TableCell>
         </TableRow>
-    )
-}
+    );
+};
 
-export default LeaderboardRow
+export default LeaderboardRow;
