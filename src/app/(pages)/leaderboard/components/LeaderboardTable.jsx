@@ -10,6 +10,8 @@ const LeaderboardTable = () => {
         totalParticipants,
         currentPage,
         search,
+        setSearch,
+        setCurrentPage,
         fetchLeaderboard,
         isLoading,
         error,
@@ -17,11 +19,24 @@ const LeaderboardTable = () => {
     } = useLeaderboardStore()
 
     const [itemsPerPage] = useState(30)
+    const [searchInput, setSearchInput] = useState(search || "")
 
     // Fetch whenever search or page changes
     useEffect(() => {
         fetchLeaderboard()
     }, [search, currentPage])
+
+    // Debounce search input → updates store after 500ms pause
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            if (searchInput !== search) {
+                setSearch(searchInput)
+                setCurrentPage(1) // reset to page 1 for new search
+            }
+        }, 500)
+
+        return () => clearTimeout(handler)
+    }, [searchInput, search, setSearch, setCurrentPage])
 
     // Grab data for current page
     const paginatedData = leaderboard[currentPage] || []
@@ -29,6 +44,17 @@ const LeaderboardTable = () => {
     return (
         <section className="w-full max-w-5xl mx-auto mt-6">
             <h2 className="text-2xl font-bold mb-4">Leaderboard</h2>
+
+            {/* Search bar */}
+            <div className="mb-4">
+                <input
+                    type="text"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    placeholder="Search by name or username..."
+                    className="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 outline-none"
+                />
+            </div>
 
             {/* Status */}
             {isLoading && <p className="text-gray-500">Loading...</p>}
@@ -85,17 +111,8 @@ const LeaderboardTable = () => {
                 <p className="text-gray-500 mt-4">No participants found.</p>
             )}
 
-            {/* API Pagination */}
-            <LeaderboardPagination itemsPerPage={itemsPerPage} />
-
-            {/* Extra info */}
-            <div className="mt-4 text-sm text-gray-500">
-                <p>Total Participants: {totalParticipants ?? '-'}</p>
-                <p>Last Updated: {leaderboardLastUpdated ?? '-'}</p>
-                <p>
-                    Page {currentPage} of {pagination.totalPages ?? '-'}
-                </p>
-            </div>
+            {/* API Pagination (only show if not searching) */}
+            {!search && <LeaderboardPagination />}
         </section>
     )
 }
