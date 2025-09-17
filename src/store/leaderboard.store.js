@@ -6,7 +6,7 @@ export const useLeaderboardStore = create((set, get) => ({
     isLoading: false,
 
     // Leaderboard
-    leaderboard: [], // participants for current page
+    leaderboard: [], // participants from fetched pages
     leaderboardLastUpdated: null,
     totalParticipants: null,
 
@@ -19,20 +19,18 @@ export const useLeaderboardStore = create((set, get) => ({
         previousPage: null,
     },
 
-    // Track which page user is on (local only)
-    currentPage: 1,
-
-    // Track fetched pages to prevent duplicate API calls
-    pagesFetched: new Set(),
+    currentPage: 1,    // Track which page user is on (local only)
+    pagesFetched: new Set(), // Track fetched pages to prevent duplicate API calls
+    search: "", // Search term
 
     /**
      * Fetch leaderboard for the current page (only if not already fetched)
      */
     fetchLeaderboard: async () => {
-        const { currentPage, pagesFetched } = get()
+        const { currentPage, pagesFetched, search } = get()
 
-        // 🛑 Skip API call if we've already fetched this page
-        if (pagesFetched.has(currentPage)) {
+        // 🛑 Skip API call if we've already fetched this page (only if not searching)
+        if (!search && pagesFetched.has(currentPage)) {
             console.log(`Page ${currentPage} already fetched. Skipping API call.`)
             return
         }
@@ -40,7 +38,12 @@ export const useLeaderboardStore = create((set, get) => ({
         set({ isLoading: true, error: null })
 
         try {
-            const apiResponse = await axiosInstance.get(`/leaderboard?page=${currentPage}`)
+            let url = `/leaderboard?page=${currentPage}`
+            if (search && search.trim() !== "") {
+                url += `&search=${search.trim()}`
+            }
+
+            const apiResponse = await axiosInstance.get(url)
             const response = apiResponse.data
 
             if (!response.success) {
@@ -50,9 +53,10 @@ export const useLeaderboardStore = create((set, get) => ({
 
             const data = response.data
 
-            // Update state
             set((prev) => ({
-                leaderboard: [...prev.leaderboard, ...data.participants], // append
+                leaderboard: search
+                    ? data.participants // if searching → replace results
+                    : [...prev.leaderboard, ...data.participants], // otherwise append
                 leaderboardLastUpdated: data.lastUpdated,
                 totalParticipants: data.totalParticipants,
 
@@ -64,7 +68,10 @@ export const useLeaderboardStore = create((set, get) => ({
                     previousPage: data.pagination.previousPage,
                 },
 
-                pagesFetched: new Set(prev.pagesFetched).add(currentPage),
+                // Only cache if not searching
+                pagesFetched: search
+                    ? new Set() // searching shouldn’t cache
+                    : new Set(prev.pagesFetched).add(currentPage),
             }))
         } catch (error) {
             if (axiosInstance.isAxiosError?.(error)) {
@@ -82,5 +89,18 @@ export const useLeaderboardStore = create((set, get) => ({
      */
     setCurrentPage: (page) => {
         set({ currentPage: page })
+    },
+
+    /**
+     * Set search term
+     */
+    setSearch: (searchText) => {
+        // Reset leaderboard + pagesFetched when new search applied
+        set({
+            search: searchText,
+            leaderboard: [],
+            pagesFetched: new Set(),
+            currentPage: 1,
+        })
     },
 }))
