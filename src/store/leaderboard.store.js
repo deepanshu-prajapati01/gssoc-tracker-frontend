@@ -3,7 +3,7 @@ import axiosInstance from '@/lib/axiosInstance'
 
 export const useLeaderboardStore = create((set, get) => ({
     error: null,
-    isLoading: false,
+    isLoading: true,
 
     // Leaderboard: keyed by page number
     leaderboard: {}, // e.g., { 1: [...participants], 2: [...participants] }

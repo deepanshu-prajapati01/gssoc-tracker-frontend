@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { useLeaderboardStore } from '@/store/leaderboard.store'
 import LeaderboardPagination from './LeaderboardPagination'
 import LeaderboardRow from './LeaderboardRow'
+import LeaderboardSkeleton from './LeaderboardSkeleton'
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from '@/components/ui/table'
 
 const LeaderboardTable = () => {
@@ -22,7 +23,6 @@ const LeaderboardTable = () => {
         fetchLeaderboard,
         isLoading,
         error,
-        pagination,
     } = useLeaderboardStore()
 
     const [itemsPerPage] = useState(30)
@@ -50,7 +50,7 @@ const LeaderboardTable = () => {
 
     return (
         <>
-            
+
 
             {/* Search and Filters */}
             <div className="mb-8 bg-white dark:bg-neutral-900 p-5 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm">
@@ -82,15 +82,9 @@ const LeaderboardTable = () => {
                 </div>
             </div>
 
-            {/* Status */}
-            {isLoading && (
-                <div className="bg-white dark:bg-neutral-900 rounded-xl border border-slate-200 dark:border-neutral-800 p-8 text-center shadow-sm">
-                    <div className="animate-pulse flex flex-col items-center">
-                        <div className="h-4 bg-slate-200 dark:bg-neutral-700 rounded w-1/4 mb-4"></div>
-                        <div className="h-4 bg-slate-200 dark:bg-neutral-700 rounded w-1/2"></div>
-                    </div>
-                </div>
-            )}
+            {/* Loading State */}
+            {isLoading && <LeaderboardSkeleton />}
+
             {error && (
                 <div className="bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg mb-6 border border-red-200 dark:border-red-900/30">
                     {error}
