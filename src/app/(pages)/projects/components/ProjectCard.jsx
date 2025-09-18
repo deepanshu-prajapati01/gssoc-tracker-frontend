@@ -86,183 +86,161 @@ const ProjectCard = ({
 
     return (
         <>
-            <div className='border border-slate-200 dark:border-neutral-800 rounded-xl overflow-hidden w-full bg-white dark:bg-neutral-900 hover:shadow-lg transition-shadow duration-300'>
+            <div className='border border-slate-200 dark:border-neutral-800 rounded-xl overflow-hidden w-full bg-white dark:bg-neutral-900 hover:shadow-lg transition-shadow duration-300 flex flex-col h-full'>
                 {/* Project Header */}
-                <div className='p-6 pb-4 border-b border-slate-200 dark:border-neutral-800'>
-                    <div className='flex justify-between items-start'>
-                        <h3 className='text-xl font-bold text-slate-900 dark:text-white'>{project['Project name']}</h3>
+                <div className='p-6 pb-4'>
+                    <div className='flex justify-between items-start mb-3'>
+                        <h3 className='text-xl font-bold text-slate-900 dark:text-white line-clamp-1'>{project['Project name']}</h3>
                         <a
                             href={project['Project link']}
                             target='_blank'
                             rel='noopener noreferrer'
-                            className='text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors'
+                            className='flex-shrink-0 text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors ml-2'
                             title='View Project'
                         >
-                            <ExternalLink size={20} />
+                            <ExternalLink size={18} />
                         </a>
                     </div>
-                    <p className='min-h-20 mt-2 text-slate-600 dark:text-slate-300 text-sm line-clamp-4'>
+
+                    <p className='text-slate-600 dark:text-slate-300 text-sm line-clamp-3 mb-4'>
                         {project['Project description']}
                     </p>
 
+                    <div className='mt-4'>
+                        <div className='mb-3'>
+                            <div className='flex items-center text-xs text-slate-500 dark:text-slate-400 mb-1'>
+                                <Code className='h-3.5 w-3.5 mr-1.5 text-emerald-600 dark:text-violet-500' />
+                                <span>Tech Stack</span>
+                            </div>
+                            <div className='flex flex-wrap gap-1.5'>
+                                {techStacks.slice(0, 3).map((tech, index) => (
+                                    <span
+                                        key={index}
+                                        className={`text-[10px] px-2 py-0.5 rounded-full ${tech.color}`}
+                                    >
+                                        {tech.name}
+                                    </span>
+                                ))}
+                                {techStacks.length > 3 && (
+                                    <span className='text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'>
+                                        +{techStacks.length - 3} more
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className='mt-auto p-4 pt-2 border-t border-slate-200 dark:border-neutral-800'>
                     <button
                         onClick={() => setIsDialogOpen(true)}
-                        className='text-xs flex items-center text-emerald-600 dark:text-violet-500 hover:underline px-2 py-1 rounded-md border border-emerald-300 dark:border-violet-400/40 hover:bg-emerald-50 dark:hover:bg-violet-500/10 hover:text-emerald-600 dark:hover:text-violet-500'
+                        className='w-full text-sm flex items-center justify-center py-2 px-3 rounded-md border border-emerald-200 dark:border-violet-500/30 text-emerald-700 dark:text-violet-400 bg-emerald-50/50 dark:bg-violet-500/10 hover:bg-emerald-100/50 dark:hover:bg-violet-500/20 transition-colors'
                     >
-                        <Info className='h-3 w-3 mr-1' /> View Details
+                        <Info className='h-3.5 w-3.5 mr-1.5' /> View Details
                     </button>
-
-
                 </div>
-
-                {/* Tech Stack */}
-                <div className='p-6 py-4 border-b border-slate-200 dark:border-neutral-800'>
-                    <div className='flex items-center justify-between mb-2'>
-                        <div className='flex items-center text-sm text-slate-600 dark:text-slate-300'>
-                            <Code className='h-4 w-4 mr-2 text-emerald-600 dark:text-violet-500' />
-                            <span className='font-medium'>Tech Stack</span>
-                        </div>
-                    </div>
-                    <div className='flex flex-wrap gap-2 mt-2'>
-                        {techStacks.map((tech, index) => (
-                            <span
-                                key={index}
-                                className={`text-xs px-2 py-1 rounded-full ${tech.color}`}
-                            >
-                                {tech.name}
-                            </span>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Project Admin */}
-                <div className='p-6 py-4 border-b border-slate-200 dark:border-neutral-800'>
-                    <h4 className='text-sm font-medium text-slate-600 dark:text-slate-300 mb-3 flex items-center'>
-                        <User className='h-4 w-4 mr-2 text-emerald-600 dark:text-violet-500' />
-                        Project Admin
-                    </h4>
-                    <div className='flex items-center justify-between'>
-                        <span className='text-slate-800 dark:text-white font-medium'>{project['Project admin']}</span>
-                        <div className='flex space-x-3'>
-                            <a
-                                href={project['Admin github']}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                className='text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors'
-                                title='GitHub Profile'
-                            >
-                                <Github size={18} />
-                            </a>
-                            <a
-                                href={project['Admin linkedin']}
-                                target='_blank'
-                                rel='noopener noreferrer'
-                                className='text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors'
-                                title='LinkedIn Profile'
-                            >
-                                <Linkedin size={18} />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Mentors */}
-                {mentors.length > 0 && (
-                    <div className='p-6 py-4'>
-                        <h4 className='text-sm font-medium text-slate-600 dark:text-slate-300 mb-3 flex items-center'>
-                            <Users className='h-4 w-4 mr-2 text-emerald-600 dark:text-violet-500' />
-                            Mentors
-                        </h4>
-                        <div className='space-y-3'>
-                            {mentors.map((mentor, index) => (
-                                <div key={index} className='flex items-center justify-between'>
-                                    <span className='text-slate-800 dark:text-white'>{mentor.name}</span>
-                                    <div className='flex space-x-3'>
-                                        <a
-                                            href={mentor.github}
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                            className='text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors'
-                                            title={`${mentor.name}'s GitHub`}
-                                        >
-                                            <Github size={16} />
-                                        </a>
-                                        <a
-                                            href={mentor.linkedin}
-                                            target='_blank'
-                                            rel='noopener noreferrer'
-                                            className='text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors'
-                                            title={`${mentor.name}'s LinkedIn`}
-                                        >
-                                            <Linkedin size={16} />
-                                        </a>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                )}
             </div>
 
             {/* Details Dialog */}
             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto">
+                <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle className="text-2xl font-bold text-slate-900 dark:text-white">
                             {project['Project name']}
                         </DialogTitle>
                     </DialogHeader>
 
-                    <div className="space-y-6 py-4">
+                    <div className="space-y-6 py-2">
                         <div>
-                            <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Description</h3>
-                            <p className="text-slate-600 dark:text-slate-300">
+                            <h3 className="text-base font-medium text-slate-900 dark:text-white mb-1.5">Description</h3>
+                            <p className="text-slate-600 dark:text-slate-300 text-sm">
                                 {project['Project description']}
                             </p>
                         </div>
 
                         <div>
-                            <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Tech Stack</h3>
-                            <p className="text-slate-500 dark:text-slate-400">
+                            <h3 className="text-base font-medium text-slate-900 dark:text-white mb-1.5">Tech Stack</h3>
+                            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                                 {project['Tech stack']}
                             </p>
                         </div>
 
-                        <div>
-                            <h3 className="text-lg font-medium text-slate-900 dark:text-white mb-2">Project Admin</h3>
-                            <div className="flex items-center justify-between bg-slate-50 dark:bg-neutral-800 p-3 rounded-lg">
-                                <span className="text-slate-800 dark:text-white font-medium">{project['Project admin']}</span>
-                                <div className="flex space-x-3">
-                                    <a
-                                        href={project['Admin github']}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
-                                        title="GitHub Profile"
-                                    >
-                                        <Github size={18} />
-                                    </a>
-                                    <a
-                                        href={project['Admin linkedin']}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
-                                        title="LinkedIn Profile"
-                                    >
-                                        <Linkedin size={18} />
-                                    </a>
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="text-base font-medium text-slate-900 dark:text-white mb-2">Project Admin</h3>
+                                <div className="flex items-center justify-between bg-slate-50 dark:bg-neutral-800/50 p-3 rounded-lg">
+                                    <div className="flex items-center">
+                                        <User className="h-4 w-4 mr-2 text-emerald-600 dark:text-violet-500" />
+                                        <span className="text-slate-800 dark:text-white font-medium">{project['Project admin']}</span>
+                                    </div>
+                                    <div className="flex space-x-3">
+                                        <a
+                                            href={project['Admin github']}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
+                                            title="GitHub Profile"
+                                        >
+                                            <Github size={18} />
+                                        </a>
+                                        <a
+                                            href={project['Admin linkedin']}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
+                                            title="LinkedIn Profile"
+                                        >
+                                            <Linkedin size={18} />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+
+                            {mentors.length > 0 && (
+                                <div>
+                                    <h3 className="text-base font-medium text-slate-900 dark:text-white mb-2">Mentors</h3>
+                                    <div className="space-y-2">
+                                        {mentors.map((mentor, index) => (
+                                            <div key={index} className="flex items-center justify-between bg-slate-50 dark:bg-neutral-800/50 p-3 rounded-lg">
+                                                <div className="flex items-center">
+                                                    <Users className="h-4 w-4 mr-2 text-emerald-600 dark:text-violet-500" />
+                                                    <span className="text-slate-800 dark:text-white">{mentor.name}</span>
+                                                </div>
+                                                <div className="flex space-x-3">
+                                                    <a
+                                                        href={mentor.github}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
+                                                        title={`${mentor.name}'s GitHub`}
+                                                    >
+                                                        <Github size={16} />
+                                                    </a>
+                                                    <a
+                                                        href={mentor.linkedin}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="text-slate-400 hover:text-emerald-600 dark:hover:text-violet-500 transition-colors"
+                                                        title={`${mentor.name}'s LinkedIn`}
+                                                    >
+                                                        <Linkedin size={16} />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
                         </div>
 
-                        <div className="flex justify-end">
+                        <div className="flex justify-end pt-2">
                             <a
                                 href={project['Project link']}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 dark:bg-violet-600 dark:hover:bg-violet-700 text-white rounded-md transition-colors"
+                                className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 dark:bg-violet-600 dark:hover:bg-violet-700 text-white text-sm rounded-md transition-colors"
                             >
-                                <ExternalLink className="h-4 w-4 mr-2" />
+                                <ExternalLink className="h-3.5 w-3.5 mr-1.5" />
                                 Visit Project
                             </a>
                         </div>

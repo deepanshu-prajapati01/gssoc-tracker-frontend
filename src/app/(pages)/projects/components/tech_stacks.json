@@ -403,5 +403,20 @@
         "id": "mkdocs",
         "name": "MKDocs",
         "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "nextjs",
+        "name": "Next.js",
+        "color": "bg-black text-white dark:bg-white dark:text-black"
+    },
+    {
+        "id": "flask",
+        "name": "Flask",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "latex-engine",
+        "name": "LaTeX Engine",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
     }
 ]
