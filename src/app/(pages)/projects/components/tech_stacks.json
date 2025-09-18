@@ -2,32 +2,38 @@
     {
         "id": "react",
         "name": "React",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["reactjs", "react.js"]
     },
     {
         "id": "nextjs",
         "name": "Next.js",
-        "color": "bg-black text-white dark:bg-white dark:text-black"
+        "color": "bg-black text-white dark:bg-white dark:text-black",
+        "aliases": ["next"]
     },
     {
         "id": "node",
         "name": "Node.js",
-        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["nodejs", "node.js"]
     },
     {
         "id": "express",
         "name": "Express",
-        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
+        "aliases": ["expressjs", "express.js"]
     },
     {
         "id": "mongodb",
         "name": "MongoDB",
-        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["mongo"]
     },
     {
         "id": "postgresql",
         "name": "PostgreSQL",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["postgres", "pg"]
     },
     {
         "id": "sqlite",
@@ -42,22 +48,26 @@
     {
         "id": "tailwind",
         "name": "Tailwind CSS",
-        "color": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200"
+        "color": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
+        "aliases": ["tailwindcss"]
     },
     {
         "id": "typescript",
         "name": "TypeScript",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["ts"]
     },
     {
         "id": "javascript",
         "name": "JavaScript",
-        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+        "aliases": ["js", "ecmascript"]
     },
     {
         "id": "python",
         "name": "Python",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["py"]
     },
     {
         "id": "django",
@@ -72,7 +82,8 @@
     {
         "id": "graphql",
         "name": "GraphQL",
-        "color": "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200"
+        "color": "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
+        "aliases": ["gql"]
     },
     {
         "id": "docker",
@@ -82,12 +93,14 @@
     {
         "id": "kubernetes",
         "name": "Kubernetes",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["k8s"]
     },
     {
         "id": "aws",
         "name": "AWS",
-        "color": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+        "color": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+        "aliases": ["amazon web services"]
     },
     {
         "id": "firebase",
@@ -112,7 +125,8 @@
     {
         "id": "kotlin",
         "name": "Kotlin",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["kt"]
     },
     {
         "id": "ollama",
@@ -122,32 +136,26 @@
     {
         "id": "html",
         "name": "HTML",
-        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+        "aliases": ["html5"]
     },
     {
         "id": "css",
         "name": "CSS",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-    },
-    {
-        "id": "js",
-        "name": "JavaScript",
-        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["css3"]
     },
     {
         "id": "mern",
-        "name": "MERN",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-    },
-    {
-        "id": "full stack",
-        "name": "Full Stack Development",
-        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+        "name": "MERN Stack",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["mongodb express react node"]
     },
     {
         "id": "fullstack",
         "name": "Full Stack Development",
-        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["full stack", "full-stack"]
     },
     {
         "id": "backend",
@@ -157,12 +165,8 @@
     {
         "id": "frontend",
         "name": "Frontend",
-        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-    },
-    {
-        "id": "front end",
-        "name": "Frontend",
-        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+        "aliases": ["front end", "front-end"]
     },
     {
         "id": "swift",
@@ -182,7 +186,8 @@
     {
         "id": "rest",
         "name": "REST API",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["restful", "restapi"]
     },
     {
         "id": "applescript",
@@ -192,7 +197,8 @@
     {
         "id": "lempstack",
         "name": "LEMP Stack",
-        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["linux nginx mysql php"]
     },
     {
         "id": "opencv",
@@ -207,17 +213,14 @@
     {
         "id": "ml",
         "name": "Machine Learning",
-        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
-    },
-    {
-        "id": "Machine Learning",
-        "name": "Machine Learning",
-        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["machine learning"]
     },
     {
         "id": "pytorch",
         "name": "PyTorch",
-        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200"
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["torch"]
     },
     {
         "id": "fastapi",
@@ -247,7 +250,8 @@
     {
         "id": "c++",
         "name": "C++",
-        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
+        "aliases": ["cpp", "cplusplus"]
     },
     {
         "id": "conan",
@@ -277,7 +281,8 @@
     {
         "id": "rust",
         "name": "Rust",
-        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+        "aliases": ["rs"]
     },
     {
         "id": "selenium",
@@ -292,7 +297,8 @@
     {
         "id": "pandas",
         "name": "Pandas",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["pandas-df"]
     },
     {
         "id": "numpy",
@@ -322,7 +328,8 @@
     {
         "id": "matplotlib",
         "name": "Matplotlib",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["mpl"]
     },
     {
         "id": "wordcloud",
@@ -337,27 +344,32 @@
     {
         "id": "powebi",
         "name": "Power BI",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["powerbi"]
     },
     {
         "id": "data-cleaning",
         "name": "Data Cleaning",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data cleaning", "data-cleansing", "data cleansing"]
     },
     {
         "id": "visualization",
         "name": "Visualization",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data visualization", "data-visualization"]
     },
     {
         "id": "golang",
         "name": "GoLang",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["go"]
     },
     {
         "id": "dsa",
         "name": "DSA",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data structures and algorithms", "algorithms and data structures"]
     },
     {
         "id": "programming languages",
@@ -367,7 +379,8 @@
     {
         "id": "java",
         "name": "Java",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["jdk", "jre", "javase"]
     },
     {
         "id": "mysql",
@@ -377,7 +390,8 @@
     {
         "id": "vscode",
         "name": "VSCode",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["visual studio code"]
     },
     {
         "id": "c",
@@ -387,7 +401,8 @@
     {
         "id": "gnu-make",
         "name": "GNU Make",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["make", "gnumake"]
     },
     {
         "id": "ncurse",
@@ -397,7 +412,8 @@
     {
         "id": "graphviz",
         "name": "Graphviz",
-        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["dot"]
     },
     {
         "id": "mkdocs",

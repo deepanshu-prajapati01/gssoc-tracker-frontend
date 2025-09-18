@@ -40,26 +40,44 @@ const ProjectCard = ({
 }) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    // Function to parse and match tech stacks
+    // Function to parse and match tech stacks with exact matching
     const parseTechStack = (stackString) => {
         if (!stackString) return [];
 
         const stackItems = stackString.split(',').map(item => item.trim().toLowerCase());
         const matchedStacks = [];
+        const matchedIds = new Set();
 
-        TECH_STACKS.forEach(tech => {
-            if (stackItems.some(item => item.includes(tech.id.toLowerCase()))) {
-                matchedStacks.push(tech);
+        // First pass: Try exact matches
+        stackItems.forEach(item => {
+            const exactMatch = TECH_STACKS.find(tech => 
+                tech.id.toLowerCase() === item || 
+                tech.aliases?.some(alias => alias.toLowerCase() === item)
+            );
+            
+            if (exactMatch && !matchedIds.has(exactMatch.id)) {
+                matchedStacks.push(exactMatch);
+                matchedIds.add(exactMatch.id);
             }
         });
 
-        // If no matches found, return badge that says "Other"
+        // If no exact matches found, check for partial matches as fallback
         if (matchedStacks.length === 0) {
-            // return stackItems.map(item => ({
-            //     id: item.toLowerCase().replace(/[^a-z0-9]/g, ''),
-            //     name: item,
-            //     color: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200'
-            // }));
+            stackItems.forEach(item => {
+                const partialMatch = TECH_STACKS.find(tech => 
+                    item.includes(tech.id.toLowerCase()) && 
+                    !matchedIds.has(tech.id)
+                );
+                
+                if (partialMatch) {
+                    matchedStacks.push(partialMatch);
+                    matchedIds.add(partialMatch.id);
+                }
+            });
+        }
+
+        // If still no matches found, return the "other" badge
+        if (matchedStacks.length === 0) {
             return [{
                 id: 'other',
                 name: 'Please check details in order to get the tech stack',
