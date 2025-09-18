@@ -1,4 +1,5 @@
 import React from 'react'
+import Projects from './components/Projects'
 
 const ProjectsPage = () => {
     return (
@@ -9,6 +10,9 @@ const ProjectsPage = () => {
                     Explore the projects that you can contribute to in order to earn points and rank higher in the Girls script summer of code 2025 program.
                 </p>
             </div>
+
+            <Projects />
+
         </div>
     )
 }
