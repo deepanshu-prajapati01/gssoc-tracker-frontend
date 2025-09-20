@@ -10,13 +10,14 @@ export const useDashboardStore = create((set, get) => ({
 
 
     fetchDashboard: async (username) => {
-        set({ isLoading: true, error: null })
         const { dashboardData } = get()
 
         // To avoid multiple requests for the same username
         if (dashboardData[username]) {
             return
         }
+
+        set({ isLoading: true, error: null })
 
         try {
             const apiResponse = await axiosInstance.post(`/dashboard`, { username })
