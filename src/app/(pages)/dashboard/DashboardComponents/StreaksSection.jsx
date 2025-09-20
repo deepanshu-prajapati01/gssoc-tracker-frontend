@@ -1,7 +1,7 @@
 
 const StreaksSection = ({streaks}) => {
     return (
-        <div className="border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-5">
+        <div className="border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-4 bg-white dark:bg-neutral-800/50 shadow-sm hover:shadow transition-shadow duration-200">
 
             {/* Current Streak (Hero Section with Flames) */}
             <div className="relative bg-emerald-50 dark:bg-violet-900/30 p-5 rounded-lg flex flex-col items-center text-center overflow-hidden">
@@ -28,7 +28,7 @@ const StreaksSection = ({streaks}) => {
             </div>
 
             {/* Best Streak */}
-            <div className="bg-slate-50 dark:bg-neutral-800/70 p-3 rounded-lg flex justify-between items-center">
+            <div className="bg-slate-50 dark:bg-neutral-800 p-3 rounded-lg flex justify-between items-center">
                 <div>
                     <p className="text-sm text-slate-600 dark:text-slate-300">Best Streak</p>
                     <p className="text-2xl font-bold text-emerald-600 dark:text-violet-400">
