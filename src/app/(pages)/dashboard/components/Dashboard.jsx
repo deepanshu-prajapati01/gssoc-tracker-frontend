@@ -2,6 +2,8 @@
 import { useDashboardStore } from '@/store/dashboard.store'
 import { useEffect, useState } from 'react'
 import { DashboardApiData } from './DashboardApiData'
+import badges from '@/lib/badges.json'
+
 
 const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
@@ -69,24 +71,19 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
                         </div>
 
                         {/* Rank Badge */}
-                        <div className="w-full bg-emerald-50 dark:bg-violet-900/20 text-emerald-700 dark:text-violet-300 text-sm font-medium px-4 py-2 rounded-lg flex items-center justify-center space-x-2">
-                            <span>Rank</span>
-                            <span className="text-lg font-bold">#{userData.rank}</span>
-                            <span>•</span>
-                            <span>Top 1%</span>
+                        <div className="w-full bg-emerald-50 dark:bg-violet-900/20 rounded-lg px-4 py-2 flex items-center justify-center space-x-3 shadow-sm">
+                            <span className="text-sm text-slate-700 dark:text-slate-300 font-medium">Rank</span>
+                            <span className="text-lg font-bold text-slate-900 dark:text-white">#{userData.rank}</span>
+                            <span className="text-slate-400 dark:text-neutral-500">•</span>
+                            <span className="text-sm font-semibold text-emerald-700 dark:text-violet-300">
+                                Top {Math.max(1, ((userData.rank / 5000) * 100).toFixed(1))}%
+                            </span>
                         </div>
-                    </div>
 
+                    </div>
 
                     {/* Streaks Section */}
                     <div className="border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-5">
-                        {/* Header */}
-                        <div className="flex items-center space-x-2">
-                            <span className="text-2xl">🔥</span>
-                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                                Streaks
-                            </h3>
-                        </div>
 
                         {/* Current Streak (Hero Section with Flames) */}
                         <div className="relative bg-emerald-50 dark:bg-violet-900/30 p-5 rounded-lg flex flex-col items-center text-center overflow-hidden">
@@ -204,6 +201,104 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
                 {/* Main content area */}
                 <div className=" col-span-12 lg:col-span-8 xl:col-span-9 space-y-3 lg:space-y-6">
+
+                    <div className='flex-1 flex gap-4 '>
+                        {/* Rank Progress Section */}
+                        <div className="border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-5">
+                            {/* Header */}
+                            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
+                                Rank Progress
+                            </h3>
+
+                            {/* Next Rank Progress */}
+                            <div>
+                                <div className="flex justify-between text-sm text-slate-600 dark:text-slate-300 mb-1">
+                                    <span>To Rank #{progressToMake.nextTarget.targetRank}</span>
+                                    <span>
+                                        {progressToMake.currentPoints}/{progressToMake.nextTarget.targetPoints} pts
+                                    </span>
+                                </div>
+
+                                {/* Progress Bar */}
+                                <div className="w-full bg-slate-200 dark:bg-neutral-700 rounded-full h-2.5 overflow-hidden">
+                                    <div
+                                        className="h-2.5 transition-all duration-500 rounded-full bg-emerald-500 dark:bg-violet-500"
+                                        style={{
+                                            width: `${(progressToMake.currentPoints / progressToMake.nextTarget.targetPoints) * 100}%`,
+                                        }}
+                                    />
+                                </div>
+
+                                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                    {progressToMake.nextTarget.pointsNeeded} more points to rank up
+                                </p>
+                            </div>
+
+                            {/* Ultimate Target */}
+                            <div className="pt-4 border-t border-slate-200 dark:border-neutral-700">
+                                <div className="flex justify-between items-center mb-2">
+                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                                        Ultimate Target
+                                    </span>
+                                    <span className="px-2 py-1 bg-emerald-100 dark:bg-violet-900/30 text-emerald-700 dark:text-violet-300 text-xs font-medium rounded">
+                                        Rank #{progressToMake.ultimateTarget.targetRank}
+                                    </span>
+                                </div>
+
+                                <div className="flex justify-between items-center">
+                                    <div>
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                                            Total Points Needed
+                                        </p>
+                                        <p className="text-lg font-bold text-slate-900 dark:text-white">
+                                            {progressToMake.ultimateTarget.targetPoints}
+                                        </p>
+                                    </div>
+                                    <div className="text-right">
+                                        <p className="text-sm text-slate-600 dark:text-slate-400">Remaining</p>
+                                        <p className="text-lg font-bold text-emerald-600 dark:text-violet-400">
+                                            {progressToMake.ultimateTarget.pointsNeeded}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Earned Badges */}
+                            <div className="pt-4 border-t border-slate-200 dark:border-neutral-700">
+                                <h4 className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
+                                    Earned Badges
+                                </h4>
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {badges
+                                        .filter(badge => progressToMake.currentPoints >= badge.pointsRequired)
+                                        .map((badge, index) => (
+                                            <div
+                                                key={index}
+                                                className="flex flex-col items-center text-center p-2 rounded-lg bg-slate-50 dark:bg-neutral-800/70"
+                                            >
+                                                <img
+                                                    src={badge.badgeImage}
+                                                    alt={badge.badgeName}
+                                                    className="w-12 h-12 mb-2"
+                                                />
+                                                <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                                                    {badge.badgeName}
+                                                </p>
+                                            </div>
+                                        ))}
+                                </div>
+                                {badges.filter(badge => progressToMake.currentPoints >= badge.pointsRequired).length === 0 && (
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 italic">
+                                        No badges earned yet
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
                 </div>
 
 
