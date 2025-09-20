@@ -10,6 +10,7 @@ import RankProgress from '../DashboardComponents/RankProgress'
 import EarnedBadges from '../DashboardComponents/EarnedBadges'
 import StreaksSection from '../DashboardComponents/StreaksSection'
 import UserProfileCard from '../DashboardComponents/UserProfileCard'
+import PrTable from '../DashboardComponents/PrTable'
 
 
 const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
@@ -54,7 +55,10 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
                 </div>
 
 
-
+                {/* PR data */}
+                <div className='col-span-12 space-y-4'>
+                    <PrTable prs={prs } labelStats={labelStats} />
+                </div>
 
 
             </div>
