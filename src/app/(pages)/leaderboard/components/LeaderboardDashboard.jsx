@@ -48,7 +48,7 @@ const LeaderboardDashboard = () => {
                                 {/* Name & Info */}
                                 <div>
                                     <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
-                                        {dashboardData[selectedUserForDashboard]?.fullName.split(" ")[0].toUpperCase()}'s Dashboard
+                                        {dashboardData[selectedUserForDashboard]?.fullName?.toUpperCase() || selectedUserForDashboard}'s Dashboard
                                     </h2>
                                     {dashboardData[selectedUserForDashboard]?.rank && (
                                         <div className="flex items-center gap-2 mt-1">
