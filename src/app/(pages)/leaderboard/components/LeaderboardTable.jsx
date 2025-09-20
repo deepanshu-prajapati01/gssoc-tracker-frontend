@@ -12,6 +12,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
+import LeaderboardDashboard from './LeaderboardDashboard'
 
 const LeaderboardTable = () => {
     const {
@@ -25,6 +26,7 @@ const LeaderboardTable = () => {
         totalParticipants,
         isLoading,
         error,
+        selectedUserForDashboard,
     } = useLeaderboardStore()
 
     const [searchInput, setSearchInput] = useState(search || "")
@@ -164,6 +166,16 @@ const LeaderboardTable = () => {
                     <LeaderboardPagination />
                 </div>
             )}
+
+
+            {/* Dashboard Here */}
+            {selectedUserForDashboard && (
+                <div id='hello' className="mt-6">
+                    <LeaderboardDashboard />
+                </div>
+            )}
+
+
         </>
     )
 }

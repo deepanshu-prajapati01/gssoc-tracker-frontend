@@ -22,6 +22,10 @@ export const useLeaderboardStore = create((set, get) => ({
     currentPage: 1, // Track which page user is on (local only)
     search: "", // Search term
 
+    // For the Dashboard Integration
+    selectedUserForDashboard: null,
+    setSelectedUserForDashboard: (user) => set({ selectedUserForDashboard: user }),
+
     /**
      * Fetch leaderboard for the current page
      */
