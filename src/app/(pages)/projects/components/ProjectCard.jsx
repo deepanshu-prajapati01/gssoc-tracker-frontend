@@ -224,7 +224,7 @@ const ProjectCard = ({
                         }}
                         className='w-full text-sm font-medium flex items-center justify-center py-2.5 px-4 rounded-lg bg-emerald-700 hover:bg-emerald-800 dark:bg-violet-900 dark:hover:bg-violet-800 text-white transition-all duration-200 hover:shadow-md'
                     >
-                        See Stats <ChartPie className='h-3.5 w-3.5 ml-1.5' />
+                        View Leaderboard <ChartPie className='h-3.5 w-3.5 ml-1.5' />
                     </button>
                 </div>
             </div>
