@@ -1,0 +1,438 @@
+[
+    {
+        "id": "react",
+        "name": "React",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["reactjs", "react.js"]
+    },
+    {
+        "id": "nextjs",
+        "name": "Next.js",
+        "color": "bg-black text-white dark:bg-white dark:text-black",
+        "aliases": ["next"]
+    },
+    {
+        "id": "node",
+        "name": "Node.js",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["nodejs", "node.js"]
+    },
+    {
+        "id": "express",
+        "name": "Express",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
+        "aliases": ["expressjs", "express.js"]
+    },
+    {
+        "id": "mongodb",
+        "name": "MongoDB",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["mongo"]
+    },
+    {
+        "id": "postgresql",
+        "name": "PostgreSQL",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["postgres", "pg"]
+    },
+    {
+        "id": "sqlite",
+        "name": "SQLite",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "tornado",
+        "name": "Tornado",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "tailwind",
+        "name": "Tailwind CSS",
+        "color": "bg-cyan-100 text-cyan-800 dark:bg-cyan-900 dark:text-cyan-200",
+        "aliases": ["tailwindcss"]
+    },
+    {
+        "id": "typescript",
+        "name": "TypeScript",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["ts"]
+    },
+    {
+        "id": "javascript",
+        "name": "JavaScript",
+        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+        "aliases": ["js", "ecmascript"]
+    },
+    {
+        "id": "python",
+        "name": "Python",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["py"]
+    },
+    {
+        "id": "django",
+        "name": "Django",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+    },
+    {
+        "id": "flask",
+        "name": "Flask",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "graphql",
+        "name": "GraphQL",
+        "color": "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200",
+        "aliases": ["gql"]
+    },
+    {
+        "id": "docker",
+        "name": "Docker",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "kubernetes",
+        "name": "Kubernetes",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["k8s"]
+    },
+    {
+        "id": "aws",
+        "name": "AWS",
+        "color": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
+        "aliases": ["amazon web services"]
+    },
+    {
+        "id": "firebase",
+        "name": "Firebase",
+        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+    },
+    {
+        "id": "git",
+        "name": "Git",
+        "color": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+    },
+    {
+        "id": "github",
+        "name": "GitHub",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "gitlab",
+        "name": "GitLab",
+        "color": "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200"
+    },
+    {
+        "id": "kotlin",
+        "name": "Kotlin",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["kt"]
+    },
+    {
+        "id": "ollama",
+        "name": "Ollama LLM",
+        "color": "bg-pink-100 text-pink-800 dark:bg-pink-900 dark:text-pink-200"
+    },
+    {
+        "id": "html",
+        "name": "HTML",
+        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+        "aliases": ["html5"]
+    },
+    {
+        "id": "css",
+        "name": "CSS",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["css3"]
+    },
+    {
+        "id": "mern",
+        "name": "MERN Stack",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["mongodb express react node"]
+    },
+    {
+        "id": "fullstack",
+        "name": "Full Stack Development",
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["full stack", "full-stack"]
+    },
+    {
+        "id": "backend",
+        "name": "Backend",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "frontend",
+        "name": "Frontend",
+        "color": "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+        "aliases": ["front end", "front-end"]
+    },
+    {
+        "id": "swift",
+        "name": "Swift",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+    },
+    {
+        "id": "swiftui",
+        "name": "SwiftUI",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "appkit",
+        "name": "AppKit",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "rest",
+        "name": "REST API",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["restful", "restapi"]
+    },
+    {
+        "id": "applescript",
+        "name": "AppleScript",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "lempstack",
+        "name": "LEMP Stack",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+        "aliases": ["linux nginx mysql php"]
+    },
+    {
+        "id": "opencv",
+        "name": "OpenCV",
+        "color": "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+    },
+    {
+        "id": "dlib",
+        "name": "dlib",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "ml",
+        "name": "Machine Learning",
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["machine learning"]
+    },
+    {
+        "id": "pytorch",
+        "name": "PyTorch",
+        "color": "bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200",
+        "aliases": ["torch"]
+    },
+    {
+        "id": "fastapi",
+        "name": "FastAPI",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "unity",
+        "name": "Unity",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "yarnspinner",
+        "name": "YarnSpinner",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "blender",
+        "name": "Blender",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "humeai",
+        "name": "HumeAI",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "c++",
+        "name": "C++",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200",
+        "aliases": ["cpp", "cplusplus"]
+    },
+    {
+        "id": "conan",
+        "name": "Conan",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "cmake",
+        "name": "CMake",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "libcurl",
+        "name": "libcurl",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "flutter",
+        "name": "Flutter",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "dart",
+        "name": "Dart",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "rust",
+        "name": "Rust",
+        "color": "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
+        "aliases": ["rs"]
+    },
+    {
+        "id": "selenium",
+        "name": "Selenium",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "undetected-chromedriver",
+        "name": "Undetected-Chromedriver",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "pandas",
+        "name": "Pandas",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["pandas-df"]
+    },
+    {
+        "id": "numpy",
+        "name": "NumPy",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "openpyxl",
+        "name": "OpenPyXL",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "xlsxwriter",
+        "name": "XlsxWriter",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "nltk",
+        "name": "NLTK",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "vader",
+        "name": "VADER",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "matplotlib",
+        "name": "Matplotlib",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["mpl"]
+    },
+    {
+        "id": "wordcloud",
+        "name": "WordCloud",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "tqdm",
+        "name": "TQDM",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "powebi",
+        "name": "Power BI",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["powerbi"]
+    },
+    {
+        "id": "data-cleaning",
+        "name": "Data Cleaning",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data cleaning", "data-cleansing", "data cleansing"]
+    },
+    {
+        "id": "visualization",
+        "name": "Visualization",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data visualization", "data-visualization"]
+    },
+    {
+        "id": "golang",
+        "name": "GoLang",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["go"]
+    },
+    {
+        "id": "dsa",
+        "name": "DSA",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["data structures and algorithms", "algorithms and data structures"]
+    },
+    {
+        "id": "programming languages",
+        "name": "Programming Languages",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "java",
+        "name": "Java",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["jdk", "jre", "javase"]
+    },
+    {
+        "id": "mysql",
+        "name": "MySQL",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "vscode",
+        "name": "VSCode",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["visual studio code"]
+    },
+    {
+        "id": "c",
+        "name": "C",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "gnu-make",
+        "name": "GNU Make",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["make", "gnumake"]
+    },
+    {
+        "id": "ncurse",
+        "name": "NCurses",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "graphviz",
+        "name": "Graphviz",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
+        "aliases": ["dot"]
+    },
+    {
+        "id": "mkdocs",
+        "name": "MKDocs",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    },
+    {
+        "id": "nextjs",
+        "name": "Next.js",
+        "color": "bg-black text-white dark:bg-white dark:text-black"
+    },
+    {
+        "id": "flask",
+        "name": "Flask",
+        "color": "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200"
+    },
+    {
+        "id": "latex-engine",
+        "name": "LaTeX Engine",
+        "color": "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+    }
+]
