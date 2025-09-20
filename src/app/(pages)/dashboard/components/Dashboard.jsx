@@ -57,7 +57,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
                 {/* PR data */}
                 <div className='col-span-12 space-y-4'>
-                    <PrTable prs={prs } labelStats={labelStats} />
+                    <PrTable prs={prs} labelStats={labelStats} />
                 </div>
 
 
