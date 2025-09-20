@@ -2,8 +2,11 @@ import React from 'react';
 import badgesData from '@/lib/badges.json';
 import { Eye } from 'lucide-react';
 import { TableRow, TableCell } from '@/components/ui/table';
+import { useLeaderboardStore } from '@/store/leaderboard.store';
 
 const LeaderboardRow = ({ participant }) => {
+    const { setSelectedUserForDashboard } = useLeaderboardStore() // For choosing the user
+
     const earnedBadge = React.useMemo(() => {
         // Find the highest badge where participant's points meet or exceed the required points
         const eligibleBadges = badgesData.filter(badge => participant.totalPoints >= badge.pointsRequired);
@@ -104,13 +107,16 @@ const LeaderboardRow = ({ participant }) => {
             </TableCell>
             <TableCell className="py-4 px-6 text-right">
                 <button
+                    onClick={() => {
+                        setSelectedUserForDashboard(participant.username)
+                    }}
                     className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/20 dark:focus:ring-violet-500 transition-colors duration-200"
                 >
                     <Eye className="w-4 h-4" />
                     <span>View Details</span>
                 </button>
             </TableCell>
-        </TableRow>
+        </TableRow >
     );
 };
 
