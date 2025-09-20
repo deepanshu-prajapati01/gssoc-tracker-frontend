@@ -1,10 +1,11 @@
 import React from 'react'
+import DashboardHandler from './components/DashboardHandler'
 
 const DashboardPage = () => {
     return (
-        <div>
-
-        </div>
+        <>
+            <DashboardHandler />
+        </>
     )
 }
 
