@@ -12,12 +12,12 @@ import { useDashboardStore } from '@/store/dashboard.store'
 
 const DashboardHandler = () => {
 
-    const { username, isLoading, dashboardData } = useDashboardStore()
+    const { username, isLoading, dashboardData, error: errorMessage } = useDashboardStore()
     if (!username) return (
         <div className=''>
             {/* Show the projects component as the background and dashboard input as the foreground  */}
             <div className='relative min-h-screen'>
-                <Dashboard/>
+                <Dashboard />
             </div>
             <div className='fixed py-10 inset-0 z-10'>
                 <DashboardInput />
@@ -27,7 +27,17 @@ const DashboardHandler = () => {
 
     return (
         <>
-            {isLoading ? <DashboardSkeleton /> : <Dashboard dataToDisplay={dashboardData[username]} />}
+            {isLoading ? (
+                <DashboardSkeleton />
+            ) : errorMessage ? (
+                null
+                // { errorMessage }
+            ) : (
+                <Dashboard dataToDisplay={dashboardData[username]} />
+            )}
+
+
+
         </>
     )
 }
