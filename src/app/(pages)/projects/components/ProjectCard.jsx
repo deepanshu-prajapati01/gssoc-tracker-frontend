@@ -42,8 +42,9 @@ const ProjectCard = ({
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isStatsDialogOpen, setIsStatsDialogOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
-    const { isLoading, projects, fetchProject } = useProjectsStore()
+    const { isLoading, projects, fetchProject } = useProjectsStore() // for contributors data
 
+    const { additionalProjectInfo, fetchAdditionalProjectInfo } = useProjectsStore() // for additional project info
 
     // Function to parse and match tech stacks with exact matching
     const parseTechStack = (stackString) => {
@@ -114,13 +115,46 @@ const ProjectCard = ({
         }
     }, [selectedProject])
 
+    useEffect(() => {
+        fetchAdditionalProjectInfo(project['Project name'])
+    }, [])
+
     return (
         <>
-            <div className='border border-slate-200 dark:border-neutral-800 rounded-xl overflow-hidden w-full bg-white dark:bg-neutral-900/80 transition-all duration-300 flex flex-col h-full hover:shadow-md hover:border-emerald-200 dark:hover:border-violet-500/40'>
+            <div className={`border rounded-xl overflow-hidden w-full transition-all duration-300 flex flex-col h-full hover:shadow-md ${
+                additionalProjectInfo[project['Project name']]?.rank === null 
+                    ? 'border-amber-200 dark:border-amber-900/50 hover:border-amber-300 dark:hover:border-amber-800/70' 
+                    : 'border-slate-200 dark:border-neutral-800 hover:border-emerald-200 dark:hover:border-violet-500/40'
+            } ${additionalProjectInfo[project['Project name']]?.rank === null ? 'bg-amber-50/30 dark:bg-amber-950/10' : 'bg-white dark:bg-neutral-900/80'}`}>
                 {/* Project Header */}
                 <div className='p-6 pb-4'>
-                    <div className='flex justify-between items-start mb-3'>
-                        <h3 className='text-xl font-bold text-slate-800 dark:text-white line-clamp-1'>{project['Project name']}</h3>
+                    <div className='flex justify-between items-start mb-3 gap-2'>
+                        <div className='flex-1 min-w-0'>
+                            <h3 className='text-xl font-bold text-slate-800 dark:text-white line-clamp-1'>{project['Project name']}</h3>
+                            {additionalProjectInfo[project['Project name']]?.rank !== undefined && (
+                                <div className='mt-1 flex items-center flex-wrap gap-2'>
+                                    {additionalProjectInfo[project['Project name']]?.rank !== null ? (
+                                        <span className='text-xs px-2 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300'>
+                                            Rank: {additionalProjectInfo[project['Project name']]?.rank}
+                                        </span>
+                                    ) : (
+                                        <span className='text-xs px-2 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'>
+                                            Not Active
+                                        </span>
+                                    )}
+                                    {additionalProjectInfo[project['Project name']]?.totalPRs !== null && (
+                                        <span className='text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'>
+                                            {additionalProjectInfo[project['Project name']]?.totalPRs} PRs
+                                        </span>
+                                    )}
+                                    {additionalProjectInfo[project['Project name']]?.totalUsers !== null && (
+                                        <span className='text-xs px-2 py-1 rounded-full bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300'>
+                                            {additionalProjectInfo[project['Project name']]?.totalUsers} Contributors
+                                        </span>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                         <a
                             href={project['Project link']}
                             target='_blank'
