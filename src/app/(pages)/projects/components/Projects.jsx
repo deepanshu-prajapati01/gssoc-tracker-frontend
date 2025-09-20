@@ -1,27 +1,51 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import ProjectCard from './ProjectCard';
 import projectsData from "@/lib/Projects.json";
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Search } from 'lucide-react';
 
-const ITEMS_PER_PAGE = 12;
+const ITEMS_PER_PAGE = 9;
 
 const Projects = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [currentItems, setCurrentItems] = useState([]);
+    const [searchQuery, setSearchQuery] = useState('');
+    const prevSearchQueryRef = useRef('');
 
+    // Filter projects based on search query
+    const filteredProjects = useMemo(() => {
+        if (!searchQuery.trim()) return projectsData;
+        
+        const query = searchQuery.toLowerCase().trim();
+        return projectsData.filter(project => {
+            return (
+                project['Project name'].toLowerCase().includes(query) ||
+                project['Project link'].toLowerCase().includes(query) ||
+                (project['Tech stack'] && project['Tech stack'].toLowerCase().includes(query))
+            );
+        });
+    }, [projectsData, searchQuery]);
+
+    // Update current items when page or filtered projects change
     useEffect(() => {
-        // Calculate total pages
-        const total = Math.ceil(projectsData.length / ITEMS_PER_PAGE);
-        setTotalPages(total);
-
-        // Get current items
         const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
         const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-        const items = projectsData.slice(indexOfFirstItem, indexOfLastItem);
+        const items = filteredProjects.slice(indexOfFirstItem, indexOfLastItem);
         setCurrentItems(items);
-    }, [currentPage, projectsData]);
+    }, [currentPage, filteredProjects]);
+
+    // Update total pages when filtered projects change
+    useEffect(() => {
+        const total = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+        setTotalPages(total || 1);
+        
+        // Reset to first page only when search query changes
+        if (prevSearchQueryRef.current !== searchQuery) {
+            setCurrentPage(1);
+            prevSearchQueryRef.current = searchQuery;
+        }
+    }, [filteredProjects, searchQuery]);
 
     const handlePageChange = (page) => {
         if (page >= 1 && page <= totalPages) {
@@ -92,20 +116,51 @@ const Projects = () => {
 
     return (
         <div className="space-y-6">
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-                {currentItems.map((project) => (
-                    <ProjectCard key={project['Project name']} project={project} />
-                ))}
+            {/* Search Bar */}
+            <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-slate-400" />
+                </div>
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search projects by name, link, or tech stack..."
+                    className="block w-full pl-10 pr-3 py-2 border border-slate-300 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-900 text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:focus:ring-violet-500 focus:border-transparent transition-all duration-200"
+                />
             </div>
+
+            {currentItems.length > 0 ? (
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
+                    {currentItems.map((project) => (
+                        <ProjectCard key={project['Project name']} project={project} />
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-12">
+                    <p className="text-slate-500 dark:text-slate-400">
+                        {searchQuery ? 
+                            'No projects found matching your search. Try different keywords.' : 
+                            'No projects available at the moment.'}
+                    </p>
+                </div>
+            )}
 
             {totalPages > 1 && (
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-200 dark:border-neutral-800">
                     <div className="text-sm text-slate-600 dark:text-slate-400">
-                        Showing <span className="font-medium">{Math.min((currentPage - 1) * ITEMS_PER_PAGE + 1, projectsData.length)}</span> to{' '}
+                        Showing <span className="font-medium">
+                            {filteredProjects.length > 0 ? (currentPage - 1) * ITEMS_PER_PAGE + 1 : 0}
+                        </span> to{' '}
                         <span className="font-medium">
-                            {Math.min(currentPage * ITEMS_PER_PAGE, projectsData.length)}
+                            {Math.min(currentPage * ITEMS_PER_PAGE, filteredProjects.length)}
                         </span>{' '}
-                        of <span className="font-medium">{projectsData.length}</span> projects
+                        of <span className="font-medium">{filteredProjects.length}</span> {filteredProjects.length === 1 ? 'project' : 'projects'}
+                        {searchQuery && (
+                            <span className="ml-2 px-2 py-0.5 text-xs bg-emerald-100 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-200 rounded-full">
+                                {filteredProjects.length} {filteredProjects.length === 1 ? 'match' : 'matches'} found
+                            </span>
+                        )}
                     </div>
 
                     <div className="flex items-center space-x-1">
