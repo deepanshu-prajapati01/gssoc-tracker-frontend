@@ -1,9 +1,5 @@
 'use client'
-import { useDashboardStore } from '@/store/dashboard.store'
-import { useEffect, useState } from 'react'
 import { DashboardApiData } from './DashboardApiData'
-import badges from '@/lib/badges.json'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import PRPointsCard from '../DashboardComponents/PRPointsCard'
 import ContributionGraph from '../DashboardComponents/ContributionGraph'
 import RankProgress from '../DashboardComponents/RankProgress'
@@ -38,7 +34,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
 
                 {/* Main content area */}
-                <div className="col-span-12 lg:col-span-8 xl:col-span-9 space-y-6">
+                <div className="col-span-12 lg:col-span-8 xl:col-span-9 space-y-6 h-full flex flex-col ">
 
                     <div className='flex-1 flex flex-col sm:flex-row gap-4 '>
                         {/* Rank Progress Section */}

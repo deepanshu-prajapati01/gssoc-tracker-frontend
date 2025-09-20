@@ -39,8 +39,8 @@ const LeaderboardDashboard = () => {
                                 {/* Avatar */}
                                 <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-emerald-500/80 dark:border-violet-500">
                                     <img
-                                        src={dashboardData[selectedUserForDashboard].avatarUrl}
-                                        alt={dashboardData[selectedUserForDashboard].fullName}
+                                        src={dashboardData[selectedUserForDashboard]?.avatarUrl || 'https://i.pinimg.com/736x/27/5f/99/275f99923b080b18e7b474ed6155a17f.jpg'}
+                                        alt={dashboardData[selectedUserForDashboard]?.fullName || selectedUserForDashboard}
                                         className="object-cover h-full w-full"
                                     />
                                 </div>
@@ -66,7 +66,7 @@ const LeaderboardDashboard = () => {
                             {/* Close Button */}
                             <button
                                 onClick={() => setSelectedUserForDashboard(null)}
-                                className="h-10 w-10 rounded-full bg-white/80 hover:bg-slate-100 text-slate-600 hover:text-slate-900 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:hover:text-white transition-all duration-200 flex items-center justify-center border border-slate-200 hover:border-emerald-500 dark:border-neutral-700 dark:hover:border-violet-500"
+                                className="h-10 w-10 rounded-full bg-white/80 hover:bg-slate-100 text-slate-600 hover:text-slate-900 dark:bg-neutral-800/80 dark:hover:bg-neutral-700 dark:text-neutral-300 dark:hover:text-white flex items-center justify-center border border-slate-200 hover:border-emerald-500 dark:border-neutral-700 dark:hover:border-violet-500"
                                 aria-label="Close dashboard"
                             >
                                 <X className="h-5 w-5" />
@@ -77,8 +77,8 @@ const LeaderboardDashboard = () => {
 
                 {/* Content */}
                 <div className="h-full w-full pt-24 pb-8 overflow-auto px-4">
-                    <div className="max-w-6xl mx-auto w-full">
-                        <div className="bg-white/80 dark:bg-neutral-900/95 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-xl p-6 md:p-8 transition-all duration-300">
+                    <div className="w-full">
+                        <div className="bg-white/80 dark:bg-neutral-900/95 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-xl duration-300">
                             {isLoading ? (
                                 <DashboardSkeleton />
                             ) : error ? (
@@ -102,7 +102,7 @@ const LeaderboardDashboard = () => {
                                     </Button>
                                 </div>
                             ) : dashboardData[selectedUserForDashboard] ? (
-                                <Dashboard userData={dashboardData[selectedUserForDashboard]} />
+                                <Dashboard dataToDisplay={dashboardData[selectedUserForDashboard]} />
                             ) : (
                                 <div className="flex flex-col items-center justify-center h-64 p-6 text-center">
                                     <div className="h-12 w-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">

@@ -8,7 +8,6 @@ import DashboardSkeleton from './DashboardSkeleton'
 // Display all the data of the user 
 import Dashboard from './Dashboard'
 import { useDashboardStore } from '@/store/dashboard.store'
-import Projects from '../../projects/components/Projects'
 
 
 const DashboardHandler = () => {
@@ -18,7 +17,7 @@ const DashboardHandler = () => {
         <div className=''>
             {/* Show the projects component as the background and dashboard input as the foreground  */}
             <div className='relative min-h-screen'>
-                <Projects />
+                <Dashboard/>
             </div>
             <div className='fixed py-10 inset-0 z-10'>
                 <DashboardInput />
