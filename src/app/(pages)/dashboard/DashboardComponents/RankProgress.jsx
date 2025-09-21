@@ -1,6 +1,32 @@
 import { Trophy, Target, Award } from 'lucide-react';
 
 const RankProgress = ({ progressToMake }) => {
+    // If no progress data, treat as rank #1
+    if (!progressToMake) {
+        return (
+            <div className="flex-1 w-full border border-emerald-200 dark:border-violet-900/50 p-6 rounded-lg bg-gradient-to-br from-emerald-50 to-emerald-50/50 dark:from-violet-900/20 dark:to-violet-900/10 shadow-sm hover:shadow transition-shadow duration-200 h-full flex flex-col items-center justify-center text-center">
+                <div className="p-3 bg-emerald-100 dark:bg-violet-900/30 rounded-full mb-4">
+                    <Trophy className="h-8 w-8 text-emerald-600 dark:text-violet-400" strokeWidth={1.75} />
+                </div>
+                <h3 className="text-xl font-bold text-emerald-800 dark:text-violet-300 mb-2">
+                    🎉 Rank #1 Achieved! 🎉
+                </h3>
+                <p className="text-emerald-700 dark:text-violet-200 mb-4 max-w-md">
+                    Congratulations! You're at the top of the leaderboard. Keep up the amazing work!
+                </p>
+                <div className="flex items-center gap-2 text-sm text-emerald-600 dark:text-violet-300">
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 dark:bg-violet-900/30">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Top Performer
+                    </span>
+                </div>
+            </div>
+        );
+    }
+
     const nextTarget = progressToMake.nextTarget;
     const ultimateTarget = progressToMake.ultimateTarget;
 

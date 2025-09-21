@@ -5,6 +5,7 @@ import { metadata as baseMetadata } from "@/lib/seoMetadata";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import AppProvider from "@/providers/AppProvider";
+import { Toaster } from "sonner";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
           </main>
 
           <Footer />
+          <Toaster />
         </AppProvider>
       </body>
 
