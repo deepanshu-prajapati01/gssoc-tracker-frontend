@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
 import { Menu, Home, LayoutDashboard, Trophy, Folder, BookOpen, Github, Linkedin, Instagram } from 'lucide-react'
@@ -9,8 +9,13 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useDashboardStore } from '@/store/dashboard.store'
 
 export default function Navbar() {
-    const { username, resetUsername } = useDashboardStore()
+    const { username: storeUsername, resetUsername } = useDashboardStore()
+    const [isMounted, setIsMounted] = useState(false)
     const pathname = usePathname()
+
+    useEffect(() => {
+        setIsMounted(true)
+    }, [])
 
     const links = [
         { name: "Home", href: "/", icon: Home },
@@ -64,12 +69,21 @@ export default function Navbar() {
 
                         <ThemeToggle />
 
-                        {username ? (
-                            <button className='text-xs border border-emerald-500 dark:border-purple-500 px-2 py-1 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900' onClick={resetUsername}>
-                                Logout
+                        {!isMounted ? (
+                            <div className='h-8 w-24 rounded-md bg-slate-200 dark:bg-slate-700 animate-pulse' />
+                        ) : storeUsername ? (
+                            <button
+                                className='text-xs border border-emerald-500 dark:border-purple-500 px-3 py-1.5 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900 transition-colors duration-200 flex items-center gap-1.5'
+                                onClick={resetUsername}
+                            >
+                                <span>Logout</span>
+                                <span className='text-xs opacity-70'>({storeUsername})</span>
                             </button>
                         ) : (
-                            <Link href="/dashboard" className='text-xs border border-emerald-500 dark:border-purple-500 px-3 py-2 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900'>
+                            <Link
+                                href="/dashboard"
+                                className='text-xs border border-emerald-500 dark:border-purple-500 px-3 py-1.5 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900 transition-colors duration-200'
+                            >
                                 Add an account
                             </Link>
                         )}
