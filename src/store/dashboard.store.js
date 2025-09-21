@@ -6,7 +6,7 @@ export const useDashboardStore = create((set, get) => ({
     error: null,
 
     dashboardData: {},
-    username: "",
+    username: typeof window !== "undefined" ? localStorage.getItem("username") || "" : "",
 
 
     fetchDashboard: async (username) => {
@@ -47,7 +47,16 @@ export const useDashboardStore = create((set, get) => ({
             set({ isLoading: false })
         }
     },
-    setUsername: (username) => set({ username }),
+
+    setUsername: (username) => {
+        localStorage.setItem("username", username);
+        set({ username });
+    },
+
+    resetUsername: () => {
+        localStorage.removeItem("username");
+        set({ username: "" });
+    },
 
 
 }))

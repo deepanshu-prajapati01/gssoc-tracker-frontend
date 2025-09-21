@@ -11,7 +11,7 @@ import { useDashboardStore } from '@/store/dashboard.store'
 import { toast } from 'sonner'
 
 const DashboardHandler = () => {
-    const { username, isLoading, dashboardData, error: errorMessage, setUsername } = useDashboardStore()
+    const { username, isLoading, dashboardData, error: errorMessage, setUsername, fetchDashboard } = useDashboardStore()
 
     // Handle error side effect
     useEffect(() => {
@@ -20,6 +20,12 @@ const DashboardHandler = () => {
             setUsername("")
         }
     }, [errorMessage, setUsername])
+
+    useEffect(() => {
+        if (username) {
+            fetchDashboard(username)
+        }
+    }, [username, fetchDashboard])
 
     // If no user, show the input overlay on top of projects
     if (!username) {
