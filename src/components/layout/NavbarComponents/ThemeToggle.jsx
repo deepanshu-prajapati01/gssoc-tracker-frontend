@@ -2,7 +2,7 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import { Sun, Moon } from 'lucide-react'; // Icons from lucide-react (shadcn-compatible)
+import { Sun, Moon } from 'lucide-react';
 
 export default function ThemeToggle() {
     const { theme, setTheme } = useTheme();
@@ -32,13 +32,17 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="shadow-sm cursor-pointer p-2 rounded-full transition-all duration-300 ease-in-out dark:bg-black bg-white hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="shadow-sm cursor-pointer p-2 rounded-full border border-emerald-500 dark:border-purple-500 transition-all duration-300 ease-in-out hover:bg-emerald-100 dark:hover:bg-violet-700/30"
             title="Toggle theme (Ctrl+K)"
         >
             {theme === 'dark' ? (
-                <Sun className="h-5 w-5 text-black dark:text-white transition-transform duration-300 ease-in-out" />
+                <Sun
+                    className="h-5 w-5 text-emerald-600 dark:text-violet-500 ease-in-out"
+                />
             ) : (
-                <Moon className="h-5 w-5 text-black dark:text-white transition-transform duration-300 ease-in-out" />
+                <Moon
+                    className="h-5 w-5 text-emerald-600 dark:text-violet-500  ease-in-out"
+                />
             )}
         </button>
     );

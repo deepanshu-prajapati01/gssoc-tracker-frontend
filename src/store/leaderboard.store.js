@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import axiosInstance from '@/lib/axiosInstance'
+import { toast } from 'sonner'
 
 export const useLeaderboardStore = create((set, get) => ({
     error: null,
@@ -82,6 +83,30 @@ export const useLeaderboardStore = create((set, get) => ({
             set({ isLoading: false })
         }
     },
+
+
+    /**
+     * Admin Refresh
+     */
+    adminRefreshLeaderboard: async (password) => {
+        try {
+            const apiResponse = await axiosInstance.post("/update", { password })
+            const response = apiResponse.data;
+
+            if (!response.success) {
+                toast.error("Invalid Password!")
+                return
+            }
+
+            toast.success(response.message)
+
+
+        } catch (error) {
+            toast.error("Invalid Password!")
+        }
+    },
+
+
 
     /**
      * Set current page
