@@ -2,11 +2,42 @@
 import { useState, useEffect } from 'react'
 import Link from "next/link"
 import { usePathname } from 'next/navigation'
-import { Menu, Home, LayoutDashboard, Trophy, Folder, BookOpen, Github, Linkedin, Instagram } from 'lucide-react'
+import { Menu, Home, LayoutDashboard, Trophy, Folder, BookOpen, Github, Linkedin, Instagram, RefreshCw } from 'lucide-react'
 import ThemeToggle from "./NavbarComponents/ThemeToggle"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { useDashboardStore } from '@/store/dashboard.store'
+import { useLeaderboardStore } from '@/store/leaderboard.store'
+
+function RefreshLeaderboard() {
+    const { adminRefreshLeaderboard } = useLeaderboardStore()
+    const { username } = useDashboardStore()
+
+    if (username !== 'deepanshu-prajapati01') return null;
+
+    const handleRefreshLeaderboard = () => {
+        const password = prompt("Enter password")
+        if (password.length < 8) return;
+        adminRefreshLeaderboard(password)
+    }
+
+    return (
+        <button
+            className="shadow-sm cursor-pointer p-2 rounded-full border border-emerald-500 dark:border-purple-500 transition-all duration-300 ease-in-out hover:bg-emerald-100 dark:hover:bg-violet-700/30"
+            onClick={() => handleRefreshLeaderboard()}
+            title="Refresh leaderboard"
+        >
+            <RefreshCw className="h-4 w-4" />
+            <span className="sr-only">Refresh</span>
+        </button>
+    )
+
+
+
+}
+
+
+
 
 export default function Navbar() {
     const { username: storeUsername, resetUsername } = useDashboardStore()
@@ -67,6 +98,7 @@ export default function Navbar() {
                 <div className="flex items-center space-x-2 ml-auto">
                     <div className='flex justify-center items-center gap-x-4'>
 
+                        < RefreshLeaderboard />
                         <ThemeToggle />
 
                         {!isMounted ? (
