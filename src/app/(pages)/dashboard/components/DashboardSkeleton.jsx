@@ -208,25 +208,73 @@ const DashboardSkeleton = () => {
 
                     {/* Bottom row - Contribution Graph and Badges */}
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <div className="flex-[66] border border-gray-200 dark:border-neutral-700 p-6 rounded-lg bg-white dark:bg-neutral-800/50">
-                            <SkeletonBox className="h-6 w-48 mb-4" />
-                            <div className="flex justify-between mb-2">
-                                {[...Array(7)].map((_, i) => (
-                                    <SkeletonBox key={i} className="h-4 w-2" />
-                                ))}
+                        {/* Contribution Graph Skeleton */}
+                        <div className="flex-[66] border border-gray-200 dark:border-neutral-700 p-4 rounded-lg bg-white dark:bg-neutral-800/50 shadow-sm">
+                            {/* Header */}
+                            <div className="flex justify-between items-center mb-4">
+                                <SkeletonBox className="h-6 w-40" />
+                                <SkeletonBox className="h-5 w-28 rounded-full" />
                             </div>
-                            <div className="grid grid-cols-7 gap-1 h-40">
-                                {[...Array(35)].map((_, i) => (
-                                    <SkeletonBox key={i} className="h-full" />
-                                ))}
+                            
+                            {/* Chart Area */}
+                            <div className="h-64 w-full relative">
+                                {/* Y-Axis */}
+                                <div className="absolute top-0 bottom-6 left-0 w-6 flex flex-col justify-between">
+                                    {[0, 1, 2, 3, 4].map((_, i) => (
+                                        <div key={i} className="flex items-center">
+                                            <SkeletonBox className="h-3 w-4 ml-1" />
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                {/* X-Axis */}
+                                <div className="absolute bottom-0 left-6 right-0 h-6 flex px-2">
+                                    {[...Array(7)].map((_, i) => (
+                                        <div key={i} className="w-full flex justify-center">
+                                            <SkeletonBox className="h-3 w-12" />
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                {/* Area Chart */}
+                                <div className="absolute top-0 left-6 right-0 bottom-6">
+                                    <div className="relative w-full h-full">
+                                        {/* Grid Lines */}
+                                        {[0, 1, 2, 3, 4].map((_, i) => (
+                                            <div 
+                                                key={i}
+                                                className="absolute left-0 right-0 h-px bg-gray-200 dark:bg-neutral-700"
+                                                style={{ top: `${i * 25}%` }}
+                                            />
+                                        ))}
+                                        
+                                        {/* Area Path */}
+                                        <div className="absolute bottom-0 left-0 right-0 h-0 border-t-2 border-cyan-400">
+                                            <div className="absolute -top-1 -left-1 -right-1 bottom-0 bg-gradient-to-t from-cyan-100 to-cyan-50 dark:from-cyan-900/30 dark:to-cyan-900/10 opacity-70" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="flex-[33] border border-gray-200 dark:border-neutral-700 p-6 rounded-lg bg-white dark:bg-neutral-800/50">
-                            <SkeletonBox className="h-6 w-32 mb-4" />
-                            <div className="grid grid-cols-2 gap-3">
-                                {[1, 2, 3, 4].map((item) => (
-                                    <SkeletonBox key={item} className="h-20 rounded-lg" />
-                                ))}
+
+                        {/* Earned Badges Skeleton */}
+                        <div className="flex-[33] border border-gray-200 dark:border-neutral-700 p-4 rounded-lg bg-white dark:bg-neutral-800/50 shadow-sm">
+                            {/* Header */}
+                            <div className="flex items-center gap-2 mb-4">
+                                <SkeletonBox className="h-6 w-6 rounded-full" />
+                                <SkeletonBox className="h-6 w-32" />
+                            </div>
+                            
+                            {/* Badges Grid */}
+                            <div className="h-64 overflow-hidden">
+                                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                    {[1, 2, 3, 4, 5, 6].map((item) => (
+                                        <div key={item} className="flex flex-col items-center p-3 rounded-lg bg-slate-50 dark:bg-neutral-800/70">
+                                            <SkeletonBox className="h-14 w-14 rounded-full mb-2" />
+                                            <SkeletonBox className="h-3 w-16" />
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
