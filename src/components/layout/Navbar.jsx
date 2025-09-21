@@ -6,8 +6,10 @@ import { Menu, Home, LayoutDashboard, Trophy, Folder, BookOpen, Github, Linkedin
 import ThemeToggle from "./NavbarComponents/ThemeToggle"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { useDashboardStore } from '@/store/dashboard.store'
 
 export default function Navbar() {
+    const { username, resetUsername } = useDashboardStore()
     const pathname = usePathname()
 
     const links = [
@@ -58,7 +60,26 @@ export default function Navbar() {
 
                 {/* Right side */}
                 <div className="flex items-center space-x-2 ml-auto">
-                    <ThemeToggle />
+                    <div className='flex justify-center items-center gap-x-4'>
+
+                        <ThemeToggle />
+
+                        {username ? (
+                            <button className='text-xs border border-emerald-500 dark:border-purple-500 px-2 py-1 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900' onClick={resetUsername}>
+                                Logout
+                            </button>
+                        ) : (
+                            <Link href="/dashboard" className='text-xs border border-emerald-500 dark:border-purple-500 px-3 py-2 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900'>
+                                Add an account
+                            </Link>
+                        )}
+
+
+
+
+                    </div>
+
+
                     <Sheet>
                         <SheetTrigger asChild className="md:hidden">
                             <Button variant="ghost" size="icon" className="h-9 w-9">
