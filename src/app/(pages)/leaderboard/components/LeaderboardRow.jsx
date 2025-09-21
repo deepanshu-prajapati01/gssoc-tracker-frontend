@@ -1,11 +1,14 @@
 import React from 'react';
 import badgesData from '@/lib/badges.json';
-import { Eye } from 'lucide-react';
+import { Eye, UserCheck, UserPlus } from 'lucide-react';
+import { toast } from 'sonner';
 import { TableRow, TableCell } from '@/components/ui/table';
 import { useLeaderboardStore } from '@/store/leaderboard.store';
+import { useDashboardStore } from '@/store/dashboard.store';
 
 const LeaderboardRow = ({ participant }) => {
     const { setSelectedUserForDashboard } = useLeaderboardStore() // For choosing the user
+    const { username, setUsername, resetUsername } = useDashboardStore()
 
     const earnedBadge = React.useMemo(() => {
         // Find the highest badge where participant's points meet or exceed the required points
@@ -106,15 +109,47 @@ const LeaderboardRow = ({ participant }) => {
                 )}
             </TableCell>
             <TableCell className="py-4 px-6 text-right">
-                <button
-                    onClick={() => {
-                        setSelectedUserForDashboard(participant.username)
-                    }}
-                    className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/20 dark:focus:ring-violet-500 transition-colors duration-200"
-                >
-                    <Eye className="w-4 h-4" />
-                    <span>View Dashboard</span>
-                </button>
+                <div className="flex items-center justify-end gap-2">
+                    <button
+                        onClick={() => {
+                            setSelectedUserForDashboard(participant.username);
+                        }}
+                        className="inline-flex items-center gap-2 px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-emerald-700 bg-emerald-50 hover:bg-emerald-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 dark:bg-violet-500/10 dark:text-violet-300 dark:hover:bg-violet-500/20 dark:focus:ring-violet-500 transition-colors duration-200"
+                        title="View dashboard and mark as me"
+                    >
+                        <Eye className="w-4 h-4" />
+                        <span>View Dashboard</span>
+                    </button>
+                    {username === participant.username ? (
+                        <button
+                            onClick={() => {
+                                resetUsername();
+                                toast.info('Profile Removed', {
+                                    description: 'This profile will no longer appear on your dashboard.',
+                                    duration: 3000,
+                                });
+                            }}
+                            className="p-2 text-red-500 rounded-full hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors duration-200"
+                            title="Unmark as me"
+                        >
+                            <UserCheck className="w-4 h-4" />
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => {
+                                setUsername(participant.username);
+                                toast.success('User Selected!', {
+                                    description: `${participant.fullName}'s data is now visible on your dashboard.`,
+                                    duration: 3000,
+                                });
+                            }}
+                            className="p-2 text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200"
+                            title="Mark as me"
+                        >
+                            <UserPlus className="w-4 h-4" />
+                        </button>
+                    )}
+                </div>
             </TableCell>
         </TableRow >
     );
