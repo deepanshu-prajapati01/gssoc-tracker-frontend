@@ -282,24 +282,51 @@ const DashboardSkeleton = () => {
 
                 {/* PR Table Skeleton */}
                 <div className="col-span-12 space-y-4">
-                    <div className="border border-gray-200 dark:border-neutral-700 rounded-lg bg-white dark:bg-neutral-800/50 p-6">
-                        <SkeletonBox className="h-6 w-48 mb-6" />
-                        <div className="space-y-3">
-                            {/* Table Header */}
-                            <div className="grid grid-cols-12 gap-4 mb-2">
-                                {['w-16', 'w-32', 'w-24', 'w-16', 'w-16', 'w-16'].map((width, i) => (
-                                    <SkeletonBox key={i} className={`h-4 ${width}`} />
-                                ))}
+                    <div className="border border-gray-200 dark:border-neutral-700 rounded-xl bg-white dark:bg-neutral-800/50 p-5 shadow-sm">
+                        {/* Header */}
+                        <div className="mb-6">
+                            <SkeletonBox className="h-6 w-48 mb-2" />
+                            <SkeletonBox className="h-4 w-64" />
+                        </div>
+
+                        {/* Filter Bar */}
+                        <div className="mb-6 flex flex-wrap items-center gap-3">
+                            <SkeletonBox className="h-9 w-24 rounded-lg" />
+                            <div className="flex-1 flex items-center gap-2">
+                                <SkeletonBox className="h-7 w-20 rounded-full" />
+                                <SkeletonBox className="h-7 w-24 rounded-full" />
+                                <SkeletonBox className="h-7 w-16 rounded-full" />
                             </div>
-                            {/* Table Rows */}
-                            {[1, 2, 3].map((row) => (
-                                <div key={row} className="grid grid-cols-12 gap-4 py-2">
-                                    <SkeletonBox className="h-4 w-16" />
-                                    <SkeletonBox className="h-4 w-32" />
-                                    <SkeletonBox className="h-4 w-24" />
-                                    <SkeletonBox className="h-4 w-16" />
-                                    <SkeletonBox className="h-4 w-16" />
-                                    <SkeletonBox className="h-4 w-16" />
+                        </div>
+
+                        {/* PR Cards Grid */}
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {[...Array(9)].map((_, idx) => (
+                                <div key={idx} className="bg-slate-50 dark:bg-neutral-800 p-4 rounded-xl">
+                                    {/* Title */}
+                                    <SkeletonBox className="h-5 w-48 mb-3" />
+                                    
+                                    {/* Status and Points */}
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <SkeletonBox className="h-5 w-16 rounded-full" />
+                                        <SkeletonBox className="h-5 w-24 rounded-full" />
+                                    </div>
+                                    
+                                    {/* Labels */}
+                                    <div className="flex flex-wrap gap-1.5 mb-4">
+                                        <SkeletonBox className="h-5 w-16 rounded-full" />
+                                        <SkeletonBox className="h-5 w-20 rounded-full" />
+                                        <SkeletonBox className="h-5 w-14 rounded-full" />
+                                    </div>
+                                    
+                                    {/* Dates and View Button */}
+                                    <div className="flex justify-between items-center pt-3 border-t border-slate-200 dark:border-neutral-700">
+                                        <div className="space-y-1">
+                                            <SkeletonBox className="h-3 w-24" />
+                                            <SkeletonBox className="h-3 w-28" />
+                                        </div>
+                                        <SkeletonBox className="h-8 w-20 rounded-md" />
+                                    </div>
                                 </div>
                             ))}
                         </div>
