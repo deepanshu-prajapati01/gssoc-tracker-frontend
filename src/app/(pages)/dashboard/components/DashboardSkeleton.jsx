@@ -151,15 +151,57 @@ const DashboardSkeleton = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-6 rounded-lg bg-white dark:bg-neutral-800/50">
-                            <SkeletonBox className="h-6 w-32 mb-4" />
-                            <div className="grid grid-cols-2 gap-4">
-                                {[1, 2, 3, 4].map((item) => (
-                                    <div key={item} className="flex flex-col items-center p-3">
-                                        <SkeletonBox className="h-4 w-16 mb-2" />
-                                        <SkeletonBox className="h-8 w-8 rounded-full" />
+                        <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-4 rounded-lg bg-white dark:bg-neutral-800/50 shadow-sm">
+                            {/* Header */}
+                            <SkeletonBox className="h-6 w-48 mb-4" />
+                            
+                            {/* Chart Area */}
+                            <div className="w-full h-64 relative">
+                                {/* X-Axis */}
+                                <div className="absolute bottom-0 left-0 right-0 flex justify-between px-2">
+                                    {['No Labels', 'Level 1', 'Level 2', 'Level 3'].map((label, i) => (
+                                        <div key={i} className="flex flex-col items-center w-1/4">
+                                            <SkeletonBox className="h-3 w-16 mb-1" />
+                                            <SkeletonBox className="h-4 w-2/3" />
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                {/* Y-Axis */}
+                                <div className="absolute top-0 bottom-10 left-0 w-8 flex flex-col justify-between">
+                                    {[0, 1, 2, 3, 4].map((_, i) => (
+                                        <div key={i} className="flex items-center">
+                                            <SkeletonBox className="h-3 w-6 ml-1" />
+                                        </div>
+                                    ))}
+                                </div>
+                                
+                                {/* Bars */}
+                                <div className="absolute bottom-10 left-8 right-0 h-48 flex items-end px-2">
+                                    <div className="w-1/4 flex justify-center">
+                                        <SkeletonBox className="w-3/4 h-1/4" style={{ minHeight: '10%' }} />
                                     </div>
-                                ))}
+                                    <div className="w-1/4 flex justify-center">
+                                        <SkeletonBox className="w-3/4 h-1/2" style={{ minHeight: '10%' }} />
+                                    </div>
+                                    <div className="w-1/4 flex justify-center">
+                                        <SkeletonBox className="w-3/4 h-3/4" style={{ minHeight: '10%' }} />
+                                    </div>
+                                    <div className="w-1/4 flex justify-center">
+                                        <SkeletonBox className="w-3/4 h-full" style={{ minHeight: '10%' }} />
+                                    </div>
+                                </div>
+                                
+                                {/* Grid Lines */}
+                                <div className="absolute top-0 bottom-10 left-8 right-0">
+                                    {[0, 1, 2, 3, 4].map((_, i) => (
+                                        <div 
+                                            key={i} 
+                                            className="absolute left-0 right-0 h-px bg-gray-200 dark:bg-neutral-700"
+                                            style={{ top: `${i * 25}%` }}
+                                        />
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
