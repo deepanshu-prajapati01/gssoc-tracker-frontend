@@ -208,8 +208,8 @@ const PrTable = ({ prs, labelStats }) => {
                         </div>
                         <div className="flex justify-between items-center text-sm text-slate-600 dark:text-slate-400 mt-3">
                             <div>
-                                <div>Created: {new Date(pr.createdAt).toLocaleDateString()}</div>
-                                <div>Merged: {pr.mergedAt ? new Date(pr.mergedAt).toLocaleDateString() : "-"}</div>
+                                <div>Created: {new Date(pr.createdAt).toISOString().split('T')[0]}</div>
+                                <div>Merged: {pr.mergedAt ? new Date(pr.mergedAt).toISOString().split('T')[0] : "-"}</div>
                             </div>
                             <a
                                 href={pr.prLink}
