@@ -18,18 +18,40 @@ const PrTable = ({ prs, labelStats }) => {
     }, []);
 
     const filteredPrs = useMemo(() => {
-        let result = prs;
-        
+        let result = [...prs]; // Create a copy of the array to avoid mutating the original
+
         // Apply status filter
         if (activeFilter) {
             result = result.filter(pr => pr.status && pr.status.toLowerCase() === activeFilter.toLowerCase());
         }
-        
+
         // Apply point filter
         if (pointFilter !== null) {
             result = result.filter(pr => pr.points === pointFilter);
         }
-        
+
+        // Sort by mergedAt date in descending order (newest first)
+        result.sort((a, b) => {
+            const dateA = a.mergedAt ? new Date(a.mergedAt) : new Date(0);
+            const dateB = b.mergedAt ? new Date(b.mergedAt) : new Date(0);
+
+            // Debug logs
+            console.log('Comparing dates:', {
+                a: { mergedAt: a.mergedAt, title: a.title, date: dateA },
+                b: { mergedAt: b.mergedAt, title: b.title, date: dateB },
+                comparison: dateB - dateA
+            });
+
+            return dateB - dateA; // For descending order
+        });
+
+        // Log the final sorted result
+        console.log('Sorted PRs:', result.map(pr => ({
+            title: pr.title,
+            mergedAt: pr.mergedAt,
+            date: pr.mergedAt ? new Date(pr.mergedAt) : null
+        })));
+
         return result;
     }, [prs, activeFilter, pointFilter]);
 
@@ -104,7 +126,7 @@ const PrTable = ({ prs, labelStats }) => {
                             </span>
                         )}
                         {(activeFilter || pointFilter !== null) && (
-                            <button 
+                            <button
                                 onClick={clearFilters}
                                 className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 flex items-center gap-1"
                             >
@@ -128,11 +150,10 @@ const PrTable = ({ prs, labelStats }) => {
                                             onClick={() => {
                                                 setActiveFilter(activeFilter === label ? null : label);
                                             }}
-                                            className={`w-full text-left px-3 py-2 text-sm rounded-md flex items-center justify-between ${
-                                                activeFilter === label
+                                            className={`w-full text-left px-3 py-2 text-sm rounded-md flex items-center justify-between ${activeFilter === label
                                                     ? 'bg-emerald-50 dark:bg-violet-900/20 text-emerald-800 dark:text-violet-300'
                                                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
-                                            }`}
+                                                }`}
                                         >
                                             <span>{label}</span>
                                             <span className="text-xs text-slate-500 dark:text-slate-400">{count}</span>
@@ -153,11 +174,10 @@ const PrTable = ({ prs, labelStats }) => {
                                                 onClick={() => {
                                                     setPointFilter(pointFilter === points ? null : points);
                                                 }}
-                                                className={`px-3 py-2 text-sm rounded-md flex items-center justify-between ${
-                                                    pointFilter === points
+                                                className={`px-3 py-2 text-sm rounded-md flex items-center justify-between ${pointFilter === points
                                                         ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300'
                                                         : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
-                                                }`}
+                                                    }`}
                                             >
                                                 <span>{points === 0 ? 'No Points' : `${points} Points`}</span>
                                                 <span className="text-xs text-slate-500 dark:text-slate-400">{count}</span>
