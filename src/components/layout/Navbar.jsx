@@ -53,7 +53,7 @@ export default function Navbar() {
         { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
         { name: "Leaderboard", href: "/leaderboard", icon: Trophy },
         { name: "Projects", href: "/projects", icon: Folder },
-        { name: "Resources", href: "/resources", icon: BookOpen },
+        { name: "Badges", href: "/badges", icon: Trophy },
     ]
 
     const socialLinks = [

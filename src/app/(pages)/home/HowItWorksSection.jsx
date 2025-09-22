@@ -103,7 +103,7 @@ const HowItWorksSection = () => {
                     ))}
                 </motion.div>
 
-                <motion.div
+                {/* <motion.div
                     className="text-center mt-16"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -122,7 +122,7 @@ const HowItWorksSection = () => {
                             </svg>
                         </Button>
                     </Link>
-                </motion.div>
+                </motion.div> */}
             </div>
         </section>
     );
