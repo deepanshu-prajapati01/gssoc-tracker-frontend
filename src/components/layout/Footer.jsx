@@ -15,7 +15,7 @@ const LINKS = {
 const quickLinks = [
     { label: 'Projects', href: '/projects' },
     { label: 'Leaderboard', href: '/leaderboard' },
-    { label: 'Resources', href: '/resources' },
+    { label: 'Badges', href: '/badges' },
 ];
 
 // ==== Community Links ====

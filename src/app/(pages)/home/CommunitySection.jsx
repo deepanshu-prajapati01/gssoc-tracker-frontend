@@ -163,7 +163,7 @@ const CommunitySection = () => {
                                 whileTap={{ scale: 0.98 }}
                             >
                                 <Github className="h-5 w-5" />
-                                Contribute to Frontend Repo
+                                Contribute to this Repo
                             </motion.a>
 
                             <motion.a
