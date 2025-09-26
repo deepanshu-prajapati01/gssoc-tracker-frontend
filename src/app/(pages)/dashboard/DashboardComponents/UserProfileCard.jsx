@@ -55,7 +55,7 @@ const UserProfileCard = ({ userData }) => {
                         </span>
                     </div>
                     <span className="text-xs font-medium text-emerald-700 dark:text-violet-300 mt-1">
-                        Top {Math.max(1, ((userData.rank / 5000) * 100).toFixed(1))}% of contributors
+                        Top {Math.max(1, ((userData.rank / 3000) * 100).toFixed(1))}% of contributors
                     </span>
                 </div>
             </div>
