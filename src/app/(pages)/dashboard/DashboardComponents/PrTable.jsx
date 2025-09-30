@@ -137,7 +137,7 @@ const PrCard = ({ pr }) => {
     const isInvalid = pr.status !== 'valid';
 
     return (
-        <div className={`rounded-lg border border-gray-100 dark:border-neutral-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-emerald-50 dark:hover:shadow-violet-900/20`}>
+        <div className={`rounded-lg dark:bg-neutral-800 bg-zinc-100/50  border border-gray-100 dark:border-neutral-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-emerald-50 dark:hover:shadow-violet-900/20`}>
             {isInvalid && <StatusHeader statusConfig={statusConfig} />}
             <div className="p-4 space-y-4">
                 <PrTitle title={pr.title} prLink={pr.prLink} isInvalid={isInvalid} />
