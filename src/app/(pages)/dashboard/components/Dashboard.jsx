@@ -30,7 +30,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
     return (
         <div className='min-h-screen p-4 bg-zinc-50 dark:bg-neutral-900/80 '>
 
-            <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6">
+            <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-2 lg:gap-4">
 
                 {/* Left side bar */}
                 <div className="h-full flex flex-col rounded-lg col-span-12 lg:col-span-4 xl:col-span-3 space-y-4">
@@ -42,7 +42,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
                 </div>
 
                 {/* Main content area */}
-                <div className="col-span-12 lg:col-span-8 xl:col-span-9 space-y-6 h-full flex flex-col ">
+                <div className="col-span-12 lg:col-span-8 xl:col-span-9 space-y-4 h-full flex flex-col ">
 
                     <div className='flex-1 flex flex-col sm:flex-row gap-4 '>
                         {/* Rank Progress Section */}
