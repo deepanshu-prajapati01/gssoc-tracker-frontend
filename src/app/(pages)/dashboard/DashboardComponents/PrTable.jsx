@@ -70,7 +70,7 @@ const PrTable = ({ prs, labelStats }) => {
     };
 
     return (
-        <div className="bg-white dark:bg-neutral-900 p-5 rounded-xl border border-slate-200 dark:border-neutral-800 shadow-sm">
+        <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-6 bg-white dark:bg-neutral-800/50 shadow-sm hover:shadow transition-shadow duration-200">
             {/* Header */}
             <div className="mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                 <div>
@@ -151,8 +151,8 @@ const PrTable = ({ prs, labelStats }) => {
                                                 setActiveFilter(activeFilter === label ? null : label);
                                             }}
                                             className={`w-full text-left px-3 py-2 text-sm rounded-md flex items-center justify-between ${activeFilter === label
-                                                    ? 'bg-emerald-50 dark:bg-violet-900/20 text-emerald-800 dark:text-violet-300'
-                                                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
+                                                ? 'bg-emerald-50 dark:bg-violet-900/20 text-emerald-800 dark:text-violet-300'
+                                                : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
                                                 }`}
                                         >
                                             <span>{label}</span>
@@ -175,8 +175,8 @@ const PrTable = ({ prs, labelStats }) => {
                                                     setPointFilter(pointFilter === points ? null : points);
                                                 }}
                                                 className={`px-3 py-2 text-sm rounded-md flex items-center justify-between ${pointFilter === points
-                                                        ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300'
-                                                        : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
+                                                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300'
+                                                    : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-neutral-700/50'
                                                     }`}
                                             >
                                                 <span>{points === 0 ? 'No Points' : `${points} Points`}</span>
