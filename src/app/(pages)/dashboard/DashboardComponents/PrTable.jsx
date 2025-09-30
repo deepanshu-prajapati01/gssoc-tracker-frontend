@@ -159,9 +159,9 @@ const PrCard = ({ pr }) => {
 const filterPrs = (prs, { searchQuery, levelFilter }) => {
     return prs.filter(pr => {
         // Search by title
-        const matchesSearch = searchQuery === '' || 
+        const matchesSearch = searchQuery === '' ||
             pr.title.toLowerCase().includes(searchQuery.toLowerCase());
-        
+
         // Filter by level
         let matchesLevel = true;
         if (levelFilter) {
@@ -172,13 +172,13 @@ const filterPrs = (prs, { searchQuery, levelFilter }) => {
                 matchesLevel = pr.points === levelPoints[levelFilter];
             }
         }
-        
+
         return matchesSearch && matchesLevel;
     });
 };
 
 // Main Component
-const PrTable = ({ prs }) => {
+const PrTable = ({ prs, prCounts }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [levelFilter, setLevelFilter] = useState(null);
 
@@ -188,12 +188,19 @@ const PrTable = ({ prs }) => {
             const dateB = b.mergedAt ? new Date(b.mergedAt) : new Date(0);
             return dateB - dateA;
         });
-        
+
         return filterPrs(sorted, { searchQuery, levelFilter, showOnlyInvalid: false });
     }, [prs, searchQuery, levelFilter]);
 
     return (
         <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-6 bg-white dark:bg-neutral-800/50 shadow-sm">
+            <div className="mb-6">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">Pull Requests</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                    Track all your contributions and their status
+                </p>
+            </div>
+
             <div className="space-y-4">
                 {/* Search and Filter Controls */}
                 <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -212,28 +219,52 @@ const PrTable = ({ prs }) => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    
+
                     {/* Level Filters */}
                     <div className="flex items-center space-x-2 overflow-x-auto pb-2">
                         {[
-                            { id: 'needsAttention', label: 'Needs Attention (0 pts)', color: 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border-amber-200 dark:border-amber-800' },
-                            { id: 'level1', label: 'Level 1 (3 pts)', color: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800' },
-                            { id: 'level2', label: 'Level 2 (7 pts)', color: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800' },
-                            { id: 'level3', label: 'Level 3 (10 pts)', color: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800' },
+                            {
+                                id: 'needsAttention',
+                                label: 'Needs Attention',
+                                sublabel: '0 pts',
+                                color: 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border-amber-200 dark:border-amber-800',
+                                count: prCounts?.needsAttention || 0
+                            },
+                            {
+                                id: 'level1',
+                                label: 'Level 1',
+                                sublabel: '3 pts',
+                                color: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800',
+                                count: prCounts?.level1 || 0
+                            },
+                            {
+                                id: 'level2',
+                                label: 'Level 2',
+                                sublabel: '7 pts',
+                                color: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800',
+                                count: prCounts?.level2 || 0
+                            },
+                            {
+                                id: 'level3',
+                                label: 'Level 3',
+                                sublabel: '10 pts',
+                                color: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800',
+                                count: prCounts?.level3 || 0
+                            },
                         ].map((level) => (
                             <button
                                 key={level.id}
                                 onClick={() => setLevelFilter(levelFilter === level.id ? null : level.id)}
-                                className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap border ${
-                                    levelFilter === level.id
-                                        ? `${level.color} border`
-                                        : 'bg-gray-100 dark:bg-neutral-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-600/50 border-gray-200 dark:border-neutral-600'
-                                }`}
+                                className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap border flex items-center gap-1.5 ${levelFilter === level.id
+                                    ? `${level.color} border`
+                                    : 'bg-gray-100 dark:bg-neutral-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-600/50 border-gray-200 dark:border-neutral-600'
+                                    }`}
                             >
-                                {level.label}
+                                <span>{level.label} ({level.count})</span>
+
                             </button>
                         ))}
-                        
+
                         {/* Clear Filters */}
                         {(searchQuery || levelFilter) && (
                             <button
@@ -248,7 +279,7 @@ const PrTable = ({ prs }) => {
                         )}
                     </div>
                 </div>
-                
+
                 {/* Results Count */}
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                     {filteredPrs.length} {filteredPrs.length === 1 ? 'PR' : 'PRs'} found
@@ -258,13 +289,6 @@ const PrTable = ({ prs }) => {
                         </span>
                     )}
                 </div>
-            </div>
-            
-            <div className="mb-6">
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-1">Pull Requests</h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                    Track all your contributions and their status
-                </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
