@@ -1,60 +1,53 @@
 import React, { useMemo } from "react";
+import { AlertCircle, AlertTriangle, ArrowUpRight, Info } from 'lucide-react';
 
 // Status Configuration
 const getStatusConfig = (status) => ({
     missing_labels: {
-        bg: 'bg-red-50 dark:bg-red-900/20 border-red-500 dark:border-red-400',
-        text: 'text-red-800 dark:text-red-100',
+        bg: 'bg-red-50 dark:bg-red-900/20  border-red-400 dark:border-red-500',
+        text: 'text-red-700 dark:text-red-100',
         icon: (
-            <svg className="w-5 h-5 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <Info className="w-4 h-4 text-red-600 dark:text-red-400" />
         ),
         title: 'Missing Labels',
         message: 'This PR is missing required labels.'
     },
     missing_gssoc_and_level_labels: {
-        bg: 'bg-amber-50 dark:bg-amber-900/20 border-amber-500 dark:border-amber-400',
-        text: 'text-amber-800 dark:text-amber-100',
+        bg: 'bg-amber-50 dark:bg-amber-900/20  border-amber-400 dark:border-amber-500',
+        text: 'text-amber-700 dark:text-amber-100',
         icon: (
-            <svg className="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
+            <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
         ),
         title: 'Missing GSSOC & Level Labels',
         message: 'Please add GSSOC and level labels.'
     },
     missing_or_invalid_level: {
-        bg: 'bg-pink-50 dark:bg-pink-900/20 border-pink-500 dark:border-pink-400',
-        text: 'text-pink-800 dark:text-pink-100',
+        bg: 'bg-pink-50 dark:bg-pink-900/20  border-pink-400 dark:border-pink-500',
+        text: 'text-pink-700 dark:text-pink-100',
         icon: (
-            <svg className="w-5 h-5 text-pink-600 dark:text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+            <Info className="w-4 h-4 text-pink-600 dark:text-pink-400" />
         ),
         title: 'Invalid Level',
         message: 'Missing or invalid level label.'
     },
     missing_gssoc_label: {
-        bg: 'bg-blue-50 dark:bg-blue-900/20 border-blue-500 dark:border-blue-400',
-        text: 'text-blue-800 dark:text-blue-100',
+        bg: 'bg-blue-50 dark:bg-blue-900/20  border-blue-400 dark:border-blue-500',
+        text: 'text-blue-700 dark:text-blue-100',
         icon: (
-            <svg className="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
+            <AlertTriangle className="w-4 h-4 text-blue-600 dark:text-blue-400" />
         ),
         title: 'Missing GSSOC Label',
         message: 'Please add the GSSOC label.'
     },
     valid: {
-        bg: 'bg-white dark:bg-neutral-800/50',
+        bg: 'bg-white dark:bg-neutral-800/50  border-emerald-400 dark:border-violet-500',
         text: 'text-gray-900 dark:text-gray-100',
         icon: null,
         title: '',
         message: ''
     }
 }[status] || {
-    bg: 'bg-gray-50 dark:bg-neutral-800/50',
+    bg: 'bg-gray-50 dark:bg-neutral-800/50  border-gray-300 dark:border-neutral-700',
     text: 'text-gray-800 dark:text-gray-200',
     icon: null,
     title: '',
@@ -63,23 +56,26 @@ const getStatusConfig = (status) => ({
 
 // Status Header Component
 const StatusHeader = ({ statusConfig }) => (
-    <div className={`px-4 py-2 flex items-center gap-2 ${statusConfig.bg}`}>
+    <div className={`px-4 py-2 flex items-center gap-2 ${statusConfig.bg} ${statusConfig.text} rounded-t-lg`}>
         {statusConfig.icon}
         <div className="flex-1">
-            <div className={`text-sm font-medium ${statusConfig.text}`}>{statusConfig.title}</div>
-            <div className={`text-xs ${statusConfig.text} opacity-90`}>{statusConfig.message}</div>
+            <div className="text-sm font-medium">{statusConfig.title}</div>
+            <div className="text-xs opacity-90">{statusConfig.message}</div>
         </div>
     </div>
 );
 
 // PR Title Component
 const PrTitle = ({ title, prLink, isInvalid }) => (
-    <h4 className="mb-2">
+    <h4 className="mb-2 group">
         <a
             href={prLink}
             target="_blank"
             rel="noopener noreferrer"
-            className={`text-md font-semibold line-clamp-2 hover:underline ${isInvalid ? 'text-gray-900 dark:text-gray-100' : 'text-gray-900 dark:text-gray-100'} hover:text-emerald-600 dark:hover:text-violet-400 transition-colors`}
+            className={`text-[15px] font-semibold leading-snug line-clamp-2 transition-colors ${isInvalid
+                ? 'text-gray-900 dark:text-gray-100'
+                : 'text-gray-900 dark:text-gray-100'
+                } hover:text-emerald-600 dark:hover:text-violet-400 group-hover:underline`}
             title="View PR on GitHub"
         >
             {title}
@@ -90,11 +86,12 @@ const PrTitle = ({ title, prLink, isInvalid }) => (
 // PR Meta Info Component
 const PrMeta = ({ points, status, isInvalid }) => (
     <div className="flex items-center gap-2 flex-wrap mb-3">
-        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-200">
+        <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-200 border border-emerald-100 dark:border-emerald-800/50">
+            <ArrowUpRight className="w-3.5 h-3.5 mr-1.5 text-emerald-600 dark:text-emerald-400" />
             {points} Points
         </span>
         {isInvalid && (
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white/90 text-gray-800 dark:bg-neutral-700/90 dark:text-gray-200 border border-gray-200 dark:border-neutral-600">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white/80 text-gray-700 dark:bg-neutral-700/80 dark:text-gray-200 border border-gray-200 dark:border-neutral-600">
                 {status.replace(/_/g, ' ')}
             </span>
         )}
@@ -135,20 +132,25 @@ const PrDates = ({ createdAt, mergedAt }) => (
     </div>
 );
 
-// PR Card Component
 const PrCard = ({ pr }) => {
     const statusConfig = getStatusConfig(pr.status);
     const isInvalid = pr.status !== 'valid';
 
     return (
-        <div className={`h-full rounded-xl shadow hover:shadow-md transition-all overflow-hidden ${statusConfig.bg} ${isInvalid ? 'ring-1 ring-opacity-50 ring-current' : ''}`}>
+        <div className={`rounded-lg border border-gray-100 dark:border-neutral-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-emerald-50 dark:hover:shadow-violet-900/20`}>
             {isInvalid && <StatusHeader statusConfig={statusConfig} />}
-            
-            <div className="p-4">
+            <div className="p-4 space-y-4">
                 <PrTitle title={pr.title} prLink={pr.prLink} isInvalid={isInvalid} />
-                <PrMeta points={pr.points} status={pr.status} isInvalid={isInvalid} />
-                <PrLabels labels={pr.labels} />
-                <PrDates createdAt={pr.createdAt} mergedAt={pr.mergedAt} />
+                <PrMeta
+                    points={pr.points || 0}
+                    status={pr.status}
+                    isInvalid={isInvalid}
+                />
+                {pr.labels && <PrLabels labels={pr.labels} />}
+                <PrDates
+                    createdAt={pr.createdAt}
+                    mergedAt={pr.mergedAt}
+                />
             </div>
         </div>
     );
@@ -156,12 +158,12 @@ const PrCard = ({ pr }) => {
 
 // Main Component
 const PrTable = ({ prs }) => {
-    const sortedPrs = useMemo(() => 
+    const sortedPrs = useMemo(() =>
         [...prs].sort((a, b) => {
             const dateA = a.mergedAt ? new Date(a.mergedAt) : new Date(0);
             const dateB = b.mergedAt ? new Date(b.mergedAt) : new Date(0);
             return dateB - dateA;
-        }), 
+        }),
         [prs]
     );
 
