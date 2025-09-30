@@ -59,25 +59,6 @@ const LeaderboardRow = ({ participant }) => {
                             </button>
                         )}
                     </span>
-                    {username === participant.username && (
-                        <button
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                resetUsername();
-                                toast.info('Profile Removed', {
-                                    description: 'This profile will no longer appear on your dashboard.',
-                                    duration: 3000,
-                                });
-                            }}
-                            className="p-1.5 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-colors duration-200"
-                            title="Unmark as me"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                <line x1="18" y1="6" x2="6" y2="18"></line>
-                                <line x1="6" y1="6" x2="18" y2="18"></line>
-                            </svg>
-                        </button>
-                    )}
                 </div>
             </TableCell>
 

@@ -105,7 +105,7 @@ export default function Navbar() {
                             <div className='h-8 w-24 rounded-md bg-slate-200 dark:bg-slate-700 animate-pulse' />
                         ) : storeUsername ? (
                             <button
-                                className='text-xs border border-emerald-500 dark:border-purple-500 px-3 py-1.5 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900 transition-colors duration-200 flex items-center gap-1.5'
+                                className='hidden sm:flex text-xs border border-emerald-500 dark:border-purple-500 px-3 py-1.5 rounded-md hover:bg-emerald-100 dark:hover:bg-violet-900 transition-colors duration-200 items-center gap-1.5'
                                 onClick={resetUsername}
                             >
                                 <span>Logout</span>
@@ -119,10 +119,6 @@ export default function Navbar() {
                                 Add an account
                             </Link>
                         )}
-
-
-
-
                     </div>
 
 
@@ -157,6 +153,31 @@ export default function Navbar() {
                                             </Link>
                                         );
                                     })}
+
+                                    {storeUsername && (
+                                        <div className="px-4 py-3 border-t border-slate-200 dark:border-neutral-700">
+                                            <div className="flex items-center justify-between">
+                                                <div className="flex items-center">
+                                                    <div className="h-7 w-7 rounded-full bg-emerald-100 dark:bg-violet-900/30 flex items-center justify-center mr-2">
+                                                        <span className="text-emerald-700 dark:text-violet-300 text-xs font-medium">
+                                                            {storeUsername.charAt(0).toUpperCase()}
+                                                        </span>
+                                                    </div>
+                                                    <span className="text-xs font-medium text-slate-800 dark:text-neutral-200 truncate max-w-[120px]">
+                                                        {storeUsername}
+                                                    </span>
+                                                </div>
+                                                <button
+                                                    onClick={resetUsername}
+                                                    className="text-xs font-medium text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 px-2.5 py-1 rounded-md transition-colors duration-200 flex items-center"
+                                                >
+                                                    <span>Logout</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    )}
+
+
                                 </div>
                             </div>
 
