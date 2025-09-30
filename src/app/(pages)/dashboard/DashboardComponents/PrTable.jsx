@@ -1,5 +1,12 @@
-import React, { useMemo, useState } from "react";
-import { AlertCircle, AlertTriangle, ArrowUpRight, Info } from 'lucide-react';
+import { useMemo, useState } from "react";
+import { Filter, X, AlertTriangle, ArrowUpRight, Info } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 // Status Configuration
 const getStatusConfig = (status) => ({
@@ -182,6 +189,39 @@ const PrTable = ({ prs, prCounts }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [levelFilter, setLevelFilter] = useState(null);
 
+    const filterOptions = [
+        {
+            id: 'needsAttention',
+            label: 'Needs Attention',
+            subLabel: 'PR with wrong or missing labels',
+            color: 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border-amber-200 dark:border-amber-800',
+            count: prCounts?.needsAttention || 0
+        },
+        {
+            id: 'level1',
+            label: '3 points',
+            subLabel: 'PR with Level 1 labels.',
+            color: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800',
+            count: prCounts?.level1 || 0
+        },
+        {
+            id: 'level2',
+            label: '7 points',
+            subLabel: 'PR with Level 2 labels.',
+            color: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800',
+            count: prCounts?.level2 || 0
+        },
+        {
+            id: 'level3',
+            label: '10 points',
+            subLabel: 'PR with Level 3 labels.',
+            color: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800',
+            count: prCounts?.level3 || 0
+        },
+    ];
+
+    const selectedFilter = filterOptions.find(opt => opt.id === levelFilter);
+
     const filteredPrs = useMemo(() => {
         const sorted = [...prs].sort((a, b) => {
             const dateA = a.mergedAt ? new Date(a.mergedAt) : new Date(0);
@@ -203,7 +243,7 @@ const PrTable = ({ prs, prCounts }) => {
 
             <div className="space-y-4">
                 {/* Search and Filter Controls */}
-                <div className="flex flex-col sm:flex-row gap-4 mb-6">
+                <div className="flex flex-col lg:flex-row gap-4 mb-6">
                     {/* Search Input */}
                     <div className="relative flex-1">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -220,59 +260,79 @@ const PrTable = ({ prs, prCounts }) => {
                         />
                     </div>
 
-                    {/* Level Filters */}
-                    <div className="flex items-center space-x-2 overflow-x-auto pb-2">
-                        {[
-                            {
-                                id: 'needsAttention',
-                                label: 'Needs Attention',
-                                sublabel: '0 pts',
-                                color: 'bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-200 border-amber-200 dark:border-amber-800',
-                                count: prCounts?.needsAttention || 0
-                            },
-                            {
-                                id: 'level1',
-                                label: 'Level 1',
-                                sublabel: '3 pts',
-                                color: 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-800 dark:text-emerald-200 border-emerald-200 dark:border-emerald-800',
-                                count: prCounts?.level1 || 0
-                            },
-                            {
-                                id: 'level2',
-                                label: 'Level 2',
-                                sublabel: '7 pts',
-                                color: 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800',
-                                count: prCounts?.level2 || 0
-                            },
-                            {
-                                id: 'level3',
-                                label: 'Level 3',
-                                sublabel: '10 pts',
-                                color: 'bg-purple-100 dark:bg-purple-900/50 text-purple-800 dark:text-purple-200 border-purple-200 dark:border-purple-800',
-                                count: prCounts?.level3 || 0
-                            },
-                        ].map((level) => (
+                    {/* Mobile Filter Dropdown */}
+                    <div className="sm:hidden">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button 
+                                    variant="outline" 
+                                    size="sm" 
+                                    className="flex items-center gap-2 w-full justify-between"
+                                >
+                                    <div className="flex items-center gap-2">
+                                        <Filter className="h-4 w-4" />
+                                        <span>{selectedFilter ? selectedFilter.label : 'Filter by level'}</span>
+                                    </div>
+                                    {levelFilter && (
+                                        <span className="ml-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs text-primary">
+                                            {selectedFilter?.count}
+                                        </span>
+                                    )}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="w-56" align="end">
+                                {filterOptions.map((level) => (
+                                    <DropdownMenuItem
+                                        key={level.id}
+                                        onClick={() => setLevelFilter(levelFilter === level.id ? null : level.id)}
+                                        className="flex justify-between items-center"
+                                    >
+                                        <span>{level.label}</span>
+                                        <span className="text-muted-foreground text-xs">{level.count}</span>
+                                    </DropdownMenuItem>
+                                ))}
+                                {(searchQuery || levelFilter) && (
+                                    <>
+                                        <DropdownMenuItem
+                                            onClick={() => {
+                                                setSearchQuery('');
+                                                setLevelFilter(null);
+                                            }}
+                                            className="text-destructive focus:text-destructive"
+                                        >
+                                            <X className="mr-2 h-4 w-4" />
+                                            Clear filters
+                                        </DropdownMenuItem>
+                                    </>
+                                )}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </div>
+
+                    {/* Level Filters - Desktop Horizontal */}
+                    <div className="hidden sm:flex items-center space-x-2 overflow-x-auto pb-2">
+                        {filterOptions.map((level) => (
                             <button
+                                title={level.subLabel}
                                 key={level.id}
                                 onClick={() => setLevelFilter(levelFilter === level.id ? null : level.id)}
-                                className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap border flex items-center gap-1.5 ${levelFilter === level.id
-                                    ? `${level.color} border`
-                                    : 'bg-gray-100 dark:bg-neutral-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-600/50 border-gray-200 dark:border-neutral-600'
-                                    }`}
+                                className={`px-3 py-1.5 text-xs font-medium rounded-full whitespace-nowrap border flex items-center gap-1.5 ${
+                                    levelFilter === level.id
+                                        ? `${level.color} border`
+                                        : 'bg-gray-100 dark:bg-neutral-700/50 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-neutral-600/50 border-gray-200 dark:border-neutral-600'
+                                }`}
                             >
                                 <span>{level.label} ({level.count})</span>
-
                             </button>
                         ))}
 
-                        {/* Clear Filters */}
                         {(searchQuery || levelFilter) && (
                             <button
                                 onClick={() => {
                                     setSearchQuery('');
                                     setLevelFilter(null);
                                 }}
-                                className="px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                                className="px-3 py-1.5 text-xs font-medium text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white whitespace-nowrap"
                             >
                                 Clear Filters
                             </button>
