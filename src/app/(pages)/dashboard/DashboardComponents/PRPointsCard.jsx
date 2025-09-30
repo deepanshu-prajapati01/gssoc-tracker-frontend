@@ -1,19 +1,12 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from 'recharts';
 
-const PRPointsCard = ({ prs }) => {
-  // Categorize PRs by their points
-  const categories = [
-    { label: 'No Labels (0 pts)', points: 0 },
-    { label: 'Level 1 (3 pts)', points: 3 },
-    { label: 'Level 2 (7 pts)', points: 7 },
-    { label: 'Level 3 (10 pts)', points: 10 },
-  ];
-
-  // Count PRs per category
-  const data = categories.map(cat => ({
-    name: cat.label,
-    count: prs.filter(pr => pr.points === cat.points).length,
-  }));
+const PRPointsCard = ({ prCounts }) => {
+    const data = [
+        { name: 'No Labels (0 pts)', count: prCounts.needsAttention },
+        { name: 'Level 1 (3 pts)', count: prCounts.level1 },
+        { name: 'Level 2 (7 pts)', count: prCounts.level2 },
+        { name: 'Level 3 (10 pts)', count: prCounts.level3 },
+    ];
 
   return (
     <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-4 bg-white dark:bg-neutral-800/50 shadow-sm hover:shadow transition-shadow duration-200">

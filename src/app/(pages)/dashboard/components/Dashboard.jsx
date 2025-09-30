@@ -1,4 +1,5 @@
 'use client'
+import { useMemo } from 'react'
 import { DashboardApiData } from './DashboardApiData'
 import PRPointsCard from '../DashboardComponents/PRPointsCard'
 import ContributionGraph from '../DashboardComponents/ContributionGraph'
@@ -8,7 +9,6 @@ import StreaksSection from '../DashboardComponents/StreaksSection'
 import UserProfileCard from '../DashboardComponents/UserProfileCard'
 import PrTable from '../DashboardComponents/PrTable'
 
-
 const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
     const { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints, streaks, contributionGraph, labelStats, progressToMake, prs, lastUpdated } = dataToDisplay;
@@ -16,7 +16,16 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
     // grabbing data from dataToDisplay. 
     const userData = { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints }
 
-
+    // Calculate PR counts by points
+    const prCountsByPoints = useMemo(() => {
+        return {
+            needsAttention: prs.filter(pr => pr.points === 0).length,
+            level1: prs.filter(pr => pr.points === 3).length,
+            level2: prs.filter(pr => pr.points === 7).length,
+            level3: prs.filter(pr => pr.points === 10).length,
+            total: prs.length
+        };
+    }, [prs]);
 
     return (
         <div className='min-h-screen p-4 bg-zinc-50 dark:bg-neutral-900/80 '>
@@ -24,7 +33,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
             <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6">
 
                 {/* Left side bar */}
-                <div className=" rounded-lg col-span-12 lg:col-span-4 xl:col-span-3 space-y-4">
+                <div className="h-full flex flex-col rounded-lg col-span-12 lg:col-span-4 xl:col-span-3 space-y-4">
                     {/* User Profile Section */}
                     <UserProfileCard userData={userData} />
 
@@ -32,16 +41,14 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
                     <StreaksSection streaks={streaks} />
                 </div>
 
-
                 {/* Main content area */}
                 <div className="col-span-12 lg:col-span-8 xl:col-span-9 space-y-6 h-full flex flex-col ">
 
                     <div className='flex-1 flex flex-col sm:flex-row gap-4 '>
                         {/* Rank Progress Section */}
                         <RankProgress progressToMake={progressToMake} />
-                        <PRPointsCard prs={prs} />
+                        <PRPointsCard prCounts={prCountsByPoints} />
                     </div>
-
 
                     <div className='flex-1 flex flex-col sm:flex-row gap-4  '>
                         <ContributionGraph className={'flex-[66]'} contributionGraph={contributionGraph} />
@@ -50,15 +57,12 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
                 </div>
 
-
                 {/* PR data */}
                 <div className='col-span-12 space-y-4'>
-                    <PrTable prs={prs} labelStats={labelStats} />
+                    <PrTable prs={prs} prCounts={prCountsByPoints} />
                 </div>
 
-
             </div>
-
 
 
         </div>
