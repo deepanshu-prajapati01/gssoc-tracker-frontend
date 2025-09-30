@@ -2,7 +2,7 @@ import { Trophy, ExternalLink } from 'lucide-react'
 
 const UserProfileCard = ({ userData }) => {
     return (
-        <div className="border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-6 bg-white dark:bg-neutral-800/50 shadow-sm hover:shadow transition-shadow duration-200">
+        <div className="flex-1 border border-gray-200 dark:border-neutral-700 p-4 rounded-lg space-y-6 bg-white dark:bg-neutral-800/50 shadow-sm hover:shadow transition-shadow duration-200">
             <div className="flex flex-col items-center text-center space-y-4">
                 {/* Avatar with Rank Badge */}
                 <div className="relative">

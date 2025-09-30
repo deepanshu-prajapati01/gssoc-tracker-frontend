@@ -24,7 +24,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
             <div className="mx-auto grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6">
 
                 {/* Left side bar */}
-                <div className=" rounded-lg col-span-12 lg:col-span-4 xl:col-span-3 space-y-4">
+                <div className="h-full flex flex-col rounded-lg col-span-12 lg:col-span-4 xl:col-span-3 space-y-4">
                     {/* User Profile Section */}
                     <UserProfileCard userData={userData} />
 
