@@ -54,37 +54,36 @@ const getStatusConfig = (status) => ({
     message: ''
 });
 
-// Status Header Component
-const StatusHeader = ({ statusConfig }) => (
-    <div className={`px-4 py-2 flex items-center gap-2 ${statusConfig.bg} ${statusConfig.text} rounded-t-lg`}>
-        {statusConfig.icon}
-        <div className="flex-1">
-            <div className="text-sm font-medium">{statusConfig.title}</div>
-            <div className="text-xs opacity-90">{statusConfig.message}</div>
-        </div>
-    </div>
-);
-
 // PR Title Component
-const PrTitle = ({ title, prLink, isInvalid }) => (
-    <h4 className="mb-2 group">
-        <a
-            href={prLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-[15px] font-semibold leading-snug line-clamp-2 transition-colors ${isInvalid
-                ? 'text-gray-900 dark:text-gray-100'
-                : 'text-gray-900 dark:text-gray-100'
-                } hover:text-emerald-600 dark:hover:text-violet-400 group-hover:underline`}
-            title="View PR on GitHub"
-        >
-            {title}
-        </a>
-    </h4>
-);
+const PrTitle = ({ title, prLink }) => {
+    // Extract PR number from the PR link if available
+    const prNumber = prLink ? `#${prLink.split('/').pop()}` : '';
+
+    return (
+        <div className="mb-3 group">
+            <div className="flex items-center gap-2 mb-1">
+                <div className="w-2 h-2 rounded-full bg-emerald-400 dark:bg-violet-500 flex-shrink-0"></div>
+                <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
+                    {prNumber} • Pull Request
+                </span>
+            </div>
+            <h3 className="text-[15px] font-semibold leading-snug line-clamp-2 group-hover:text-emerald-600 dark:group-hover:text-violet-400 transition-colors">
+                <a
+                    href={prLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline focus:outline-none focus:ring-2 focus:ring-emerald-500/50 dark:focus:ring-violet-500/50 rounded"
+                    title="View PR on GitHub"
+                >
+                    <span className="text-gray-900 dark:text-gray-100">{title}</span>
+                </a>
+            </h3>
+        </div>
+    );
+};
 
 // PR Meta Info Component
-const PrMeta = ({ points, status, isInvalid }) => (
+const PrMeta = ({ points, isInvalid, statusConfig }) => (
     <div className="flex items-center gap-2 flex-wrap mb-3">
         <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-200 border border-emerald-100 dark:border-emerald-800/50">
             <ArrowUpRight className="w-3.5 h-3.5 mr-1.5 text-emerald-600 dark:text-emerald-400" />
@@ -92,7 +91,7 @@ const PrMeta = ({ points, status, isInvalid }) => (
         </span>
         {isInvalid && (
             <span className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-white/80 text-gray-700 dark:bg-neutral-700/80 dark:text-gray-200 border border-gray-200 dark:border-neutral-600">
-                {status.replace(/_/g, ' ')}
+                {statusConfig.title}
             </span>
         )}
     </div>
@@ -137,14 +136,14 @@ const PrCard = ({ pr }) => {
     const isInvalid = pr.status !== 'valid';
 
     return (
-        <div className={`rounded-lg dark:bg-neutral-800 bg-zinc-100/50  border border-gray-100 dark:border-neutral-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-emerald-50 dark:hover:shadow-violet-900/20`}>
-            {isInvalid && <StatusHeader statusConfig={statusConfig} />}
+        <div className={`rounded-lg bg-neutral-50 dark:bg-neutral-800 border border-gray-200 dark:border-neutral-700 overflow-hidden transition-all duration-200 hover:shadow-lg hover:shadow-emerald-50/50 dark:hover:shadow-violet-900/20`}>
             <div className="p-4 space-y-4">
                 <PrTitle title={pr.title} prLink={pr.prLink} isInvalid={isInvalid} />
                 <PrMeta
                     points={pr.points || 0}
                     status={pr.status}
                     isInvalid={isInvalid}
+                    statusConfig={statusConfig}
                 />
                 {pr.labels && <PrLabels labels={pr.labels} />}
                 <PrDates
