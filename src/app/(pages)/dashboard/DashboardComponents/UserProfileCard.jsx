@@ -1,4 +1,4 @@
-import { Trophy, ExternalLink } from 'lucide-react'
+import { Trophy, ExternalLink, CheckCircle2, XCircle } from 'lucide-react'
 
 const UserProfileCard = ({ userData }) => {
     return (
@@ -11,11 +11,11 @@ const UserProfileCard = ({ userData }) => {
                         alt={userData.fullName}
                         className="size-24 rounded-full border-4 border-emerald-100 dark:border-violet-900/50 object-cover"
                     />
-                    
+
                 </div>
 
                 {/* User Info */}
-                <div>
+                <div className="w-full">
                     <h2 className="text-xl font-bold text-slate-900 dark:text-white">
                         {userData.fullName}
                     </h2>
@@ -58,6 +58,23 @@ const UserProfileCard = ({ userData }) => {
                         Top {Math.max(1, ((userData.rank / 3000) * 100).toFixed(1))}% of contributors
                     </span>
                 </div>
+
+                {/* Postman Status */}
+                {userData.postmanCompletion ? (
+                    <div className="w-full py-2 px-3 rounded-lg flex items-center justify-center bg-slate-50 dark:bg-neutral-800">
+                        <div className="flex items-center">
+                            <CheckCircle2 className="w-4 h-4 text-emerald-500 dark:text-emerald-400 mr-2" />
+                            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">Successfully completed Postman Challenge</span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="w-full py-2 px-3 rounded-lg flex items-center justify-center bg-slate-50 dark:bg-neutral-800">
+                        <div className="flex items-center">
+                            <XCircle className="w-4 h-4 text-red-500 dark:text-red-400 mr-2" />
+                            <span className="text-xs font-medium text-slate-700 dark:text-slate-300">Not completed Postman Challenge</span>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     )

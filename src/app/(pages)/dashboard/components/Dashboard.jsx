@@ -11,10 +11,10 @@ import PrTable from '../DashboardComponents/PrTable'
 
 const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
-    const { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints, streaks, contributionGraph, labelStats, progressToMake, prs, lastUpdated } = dataToDisplay;
+    const { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints, streaks, contributionGraph, labelStats, progressToMake, prs, lastUpdated, postmanCompletion } = dataToDisplay;
 
     // grabbing data from dataToDisplay. 
-    const userData = { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints }
+    const userData = { exists, rank, username, fullName, avatarUrl, profileUrl, totalPRs, totalPoints, postmanCompletion }
 
     // Calculate PR counts by points
     const prCountsByPoints = useMemo(() => {
@@ -52,7 +52,7 @@ const Dashboard = ({ dataToDisplay = DashboardApiData }) => {
 
                     <div className='flex-1 flex flex-col sm:flex-row gap-4  '>
                         <ContributionGraph className={'flex-[66]'} contributionGraph={contributionGraph} />
-                        <EarnedBadges totalPoints={totalPoints} className={'flex-[33]'} />
+                        <EarnedBadges postmanCompletion={postmanCompletion} totalPoints={totalPoints} className={'flex-[33]'} />
                     </div>
 
                 </div>

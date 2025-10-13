@@ -123,6 +123,7 @@ const LeaderboardTable = () => {
                                 <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Rank</TableHead>
                                 <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Contributor</TableHead>
                                 <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total PRs</TableHead>
+                                <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Postman</TableHead>
                                 <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Total Points</TableHead>
                                 <TableHead className="py-4 px-6 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Badge Earned</TableHead>
                                 <TableHead className="py-4 px-6 text-right text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider"></TableHead>

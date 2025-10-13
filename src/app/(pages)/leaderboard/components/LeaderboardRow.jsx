@@ -1,6 +1,6 @@
 import React from 'react';
 import badgesData from '@/lib/badges.json';
-import { Eye, UserCheck, UserPlus } from 'lucide-react';
+import { Eye, UserCheck, UserPlus, CheckCircle2, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { TableRow, TableCell } from '@/components/ui/table';
 import { useLeaderboardStore } from '@/store/leaderboard.store';
@@ -99,6 +99,21 @@ const LeaderboardRow = ({ participant }) => {
                     {participant.totalPRs}
                 </div>
             </TableCell>
+            <TableCell className="py-4 px-3 whitespace-nowrap text-center">
+                <div className="flex justify-center">
+                    {participant.postmanCompletion ? (
+                        <div className="flex items-center justify-center bg-emerald-50/80 dark:bg-green-900/20 px-3 py-1.5 rounded-full border border-emerald-100 dark:border-green-800/50 space-x-1.5 shadow-sm hover:shadow-md hover:shadow-emerald-100/50 dark:hover:shadow-green-900/20 transition-shadow duration-200">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-green-400" />
+                            <span className="text-xs font-medium text-emerald-700 dark:text-green-300">Completed</span>
+                        </div>
+                    ) : (
+                        <div className="flex items-center justify-center bg-amber-50/70 dark:bg-neutral-800 px-3 py-1.5 rounded-full border border-amber-100 dark:border-neutral-700/50 space-x-1.5 shadow-sm hover:shadow-md hover:shadow-amber-100/50 dark:hover:shadow-neutral-800/20 transition-shadow duration-200">
+                            <XCircle className="w-3.5 h-3.5 text-red-500 dark:text-red-400" />
+                            <span className="text-xs font-medium text-red-700 dark:text-red-400">Not Done</span>
+                        </div>
+                    )}
+                </div>
+            </TableCell>
             <TableCell className="py-4 px-6 whitespace-nowrap">
                 <div className="flex items-center">
                     <span className="text-sm font-medium text-slate-900 dark:text-white">
@@ -142,7 +157,7 @@ const LeaderboardRow = ({ participant }) => {
                     title="View dashboard"
                 >
                     <Eye className="w-4 h-4" />
-                    <span>View Dashboard</span>
+                    <span>View</span>
                 </button>
             </TableCell>
         </TableRow >

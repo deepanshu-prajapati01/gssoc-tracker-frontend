@@ -1,7 +1,7 @@
 import badges from '@/lib/badges.json'
 import { ScrollArea } from "@/components/ui/scroll-area"  // Make sure the import path matches your project
 
-const EarnedBadges = ({ className, totalPoints }) => {
+const EarnedBadges = ({ className, totalPoints, postmanCompletion }) => {
     const earnedBadges = badges.filter(badge => totalPoints >= badge.pointsRequired);
 
     return (
@@ -30,6 +30,23 @@ const EarnedBadges = ({ className, totalPoints }) => {
                                 </p>
                             </div>
                         ))}
+
+                        {/* Postman */}
+                        {postmanCompletion && (
+                            <div
+                                key="postman"
+                                className="flex flex-col items-center text-center p-3 rounded-lg bg-slate-50 dark:bg-neutral-800/70 hover:shadow-md"
+                            >
+                                <img
+                                    src="/badges/Postman-Badge.png"
+                                    alt="Postman Badge"
+                                    className="w-14 h-14 mb-2"
+                                />
+                                <p className="text-xs font-semibold text-slate-700 dark:text-slate-200">
+                                    Postman Badge
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </ScrollArea>
             ) : (
