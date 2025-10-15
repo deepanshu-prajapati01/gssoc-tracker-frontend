@@ -8,12 +8,16 @@ export const useDashboardStore = create((set, get) => ({
     dashboardData: {},
     username: typeof window !== "undefined" ? localStorage.getItem("username") || "" : "",
 
+    resetLoading: () => {
+        set({ isLoading: false })
+    },
 
     fetchDashboard: async (username) => {
-        const { dashboardData } = get()
+        const { dashboardData, resetLoading } = get()
 
         // To avoid multiple requests for the same username
         if (dashboardData[username]) {
+            resetLoading()
             return
         }
 
@@ -25,6 +29,7 @@ export const useDashboardStore = create((set, get) => ({
 
             if (!response.success) {
                 set({ error: response.message || "Something went wrong" })
+                resetLoading()
                 return
             }
 
@@ -44,7 +49,7 @@ export const useDashboardStore = create((set, get) => ({
                 set({ error: error.message || "Something went wrong" })
             }
         } finally {
-            set({ isLoading: false })
+            resetLoading()
         }
     },
 
