@@ -1,5 +1,6 @@
 'use client'
 import React, { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 // When there's no user 
 import DashboardInput from './DashboardInput'
@@ -12,6 +13,7 @@ import { toast } from 'sonner'
 
 const DashboardHandler = () => {
     const { username, isLoading, dashboardData, error: errorMessage, setUsername, fetchDashboard } = useDashboardStore()
+    const router = useRouter()
 
     // Handle error side effect
     useEffect(() => {
@@ -54,8 +56,8 @@ const DashboardHandler = () => {
         )
     }
 
-    // Otherwise, render dashboard
-    return <Dashboard dataToDisplay={dashboardData[username]} />
+    // Otherwise, take user to dashboard/[username]
+    router.push(`/dashboard/${username}`)
 }
 
 export default DashboardHandler
